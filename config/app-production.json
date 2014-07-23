@@ -1,0 +1,60 @@
+{
+// "host": "localhost",
+//
+    "port": 3000,
+    "databaseConfig": {
+        "host": "localhost",
+        "database": "huibaoDB"
+    },
+    "bcrypt": {
+        "difficulty": 8
+    },
+    "uploadDir": "../upload/tools",
+    "apiServer": {
+        "host":"localhost",
+        "port":"8080"
+    },
+    "pagination": {
+        "max":10
+    }
+//
+// "i18n": {
+//     "fallback": "en-US",
+//     "contentPath": "path:./locales"
+// },
+//
+// "routes": {
+//     "routePath": "path:./controllers"
+// },
+//
+//  "view engines": {
+//      "js": {
+//         "module": "adaro",
+//         "settings": {
+//             "helpers": null,
+//             "stream": false
+//         }
+//      },
+//
+//     "dust": {
+//         "module": "adaro",
+//         "settings": {
+//             "helpers": null,
+//             "stream": false
+//         }
+//     }
+// },
+// "express": {
+//     "x-powered-by": false,
+//     "trust proxy": false,
+//     "jsonp callback name": null,
+//     "json replacer": null,
+//     "json spaces": 0,
+//     "case sensitive routing": false,
+//     "strict routing": false,
+//     "view cache": true,
+//     "view engine": "js",
+//     "views": "path:./.build/templates"
+// }
+
+}

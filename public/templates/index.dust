@@ -1,0 +1,8 @@
+{>"layouts/master" /}
+
+{<content}
+
+		<h1>首页</h1>
+        <p>本网站的目的是方便开发人员下载各类开发工具和学习如何创建标准化开发环境。网站内容包括各类开发<a href="/tools">常用工具</a>、<a href="/plugins">插件</a>和各类<a href="http://10.100.133.101:8082/wiki">文档</a>。</p>
+
+{/content}

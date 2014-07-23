@@ -1,0 +1,61 @@
+{>"layouts/master" /}
+{<content}
+<div class="panel panel-primary">
+  <div class="panel-heading">信息详情</div>
+  <div class="panel-body">
+        {#Bizaccept}
+			    <div class="form-group">
+                <label for="applicationno" class="col-sm-1 control-label">投保单号</label>
+            	<div class="col-sm-2">
+                    <p class="form-control">{.applicationNo}</p>
+            	</div>
+                <label for="agentcode" class="col-sm-1 control-label">销售代码</label>
+                <div class="col-sm-2">
+                     <p class="form-control">{agentCode}</p>
+                </div>
+                <label for="agentname" class="col-sm-1 control-label">营销员姓名</label>
+                <div class="col-sm-2">
+                     <p class="form-control">{agentName}</p>
+                </div>
+                <label for="agentidNo" class="col-sm-1 control-label">营销员证件</label>
+                <div class="col-sm-2">
+                         <p class="form-control">{agentIdNo}</p>
+                </div>
+			</div>
+            <div class="form-group">
+                <label for="customeridNo" class="col-sm-1 control-label">客户证件</label>
+                <div class="col-sm-2">
+                   <p class="form-control">{customerIdNo}</p>
+                </div>
+                <label for="providerCode" class="col-sm-1 control-label">供应商代码</label>
+                <div class="col-sm-2">
+                     <p class="form-control">{providerCode}</p>
+                </div>
+                <label for="acceptNum" class="col-sm-1 control-label">受理金额</label>
+                <div class="col-sm-2">
+                     <p class="form-control">{acceptNum}</p>
+                </div>
+                 <label for="acceptNum" class="col-sm-1 control-label">受理日期</label>
+                <div class="col-sm-2">
+                     <p class="form-control">{@formatDate date="{acceptDate}" format="YYYY-MM-DD" required="true"/}</p>
+                </div>
+            </div>
+			<div class="form-group">
+            				<div class="col-sm-12">
+            				<div class="btn-toolbar" role="toolbar">
+            				<div class="btn-toolbar" role="toolbar">
+            					<div class="btn-group">
+            						<button id="returnButton" onclick="goBack()" type="button" class="btn btn-default">返回</button>
+            					</div>
+            			</div>
+		{/Bizaccept}
+	</div>
+</div>
+{/content}
+{<script}
+    <script type="text/javascript">
+        function goBack(){
+            window.location.href="/biz/bizAccept/bizAcceptQuery";
+        }
+    </script>
+{/script}

@@ -1,0 +1,8 @@
+{>"layouts/master" /}
+
+{<content}
+<div class="container">
+    <h1>{@pre type="content" key="header"/}</h1>
+    <p>{@pre type="content" key="description"/}</p>
+</div>
+{/content}

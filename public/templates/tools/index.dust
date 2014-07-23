@@ -1,0 +1,93 @@
+{>"layouts/master" /} 
+{<content}
+<div class="container">
+	<h1>{title}</h1>
+	<form class="form-inline" role="form" action="/tools" method="post">
+		<div class="form-group">
+			<label class="sr-only" for="inputName">名称</label> 
+			<input class="form-control" type="text" placeholder="名称" name="tool[name]">
+		</div>
+		<div class="form-group">
+			<label class="sr-only" for="inputName">类型</label> 
+			<select class="form-control" id="inputType" name="tool[type]">
+				<option />
+				<option>开发工具</option>
+				<option>版本管理</option>
+				<option>开发服务器</option>
+				<option>数据库工具</option>
+			</select>
+		</div>
+		<button class="btn btn-default" type="submit">查询</button>
+		<input type="hidden" name="_csrf" value="{_csrf}"/>
+	</form>
+	<table class="table table-hover table-condensed">
+		<thead>
+			<tr>
+				<th class="col-md-4">名称</th>
+				<th class="col-md-1">类型</th>
+				<th class="col-md-6">描述</th>
+				<th class="col-md-1">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+		{#tools} 
+		    <tr>
+		      <td class="field-label col-md-4"><a href="/tool/{.id}/download">{.name}</a></td>
+		      <td class="field-label col-md-1">{.type}</td>
+		      <td class="field-label col-md-6">{.describe}</td>
+		      <td class="field-label col-md-1">
+		          {?isAdmin}
+		          <a class="btn btn-default btn-xs" href="/tool/{.id}/edit">修改</a>
+		          <button class="btn btn-default btn-xs" onclick="deleteTool('{.id}')">删除</button>
+		          {:else}
+		          <a class="btn btn-default btn-xs disabled" href="#">修改</a>
+		          <a class="btn btn-default btn-xs disabled" href="#">删除</a>
+		          {/isAdmin}
+		      </td>
+		    </tr>
+		{/tools}
+		</tbody>
+	</table>
+</div>
+<div class="container">
+    <ul class="pagination"></ul>
+</div>
+{/content}
+{<script}
+<script type="text/javascript">
+	function deleteTool(id){
+	    bootbox.confirm("确认删除？", function(result) {
+	        if (result) {
+	            window.location = "/tool/" + id + "/delete";
+	        } else {
+	        }
+	    }); 
+	}
+	var options = {
+	    currentPage: {page},
+	    bootstrapMajorVersion : 3,
+	    totalPages: {pageCount},
+	    pageUrl : function(type, page, current){
+	        return '/tools?page='+page;
+	    },
+	    itemContainerClass: function (type, page, current) {
+	        return (page === current) ? "disabled" : "pointer-cursor";
+	    },
+	    itemTexts: function (type, page, current) {
+	        switch (type) {
+	            case "first":
+	                return "<<";
+	            case "prev":
+	                return "<";
+	            case "next":
+	                return ">";
+	            case "last":
+	                return ">>";
+	            case "page":
+	                return page;
+	        }
+	    }
+	};
+	$('.pagination').bootstrapPaginator(options);
+</script> 
+{/script}

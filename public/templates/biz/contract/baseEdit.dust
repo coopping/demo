@@ -1,0 +1,528 @@
+{>"layouts/master" /}
+{<content}
+<div class="panel panel-primary">
+    <div class="panel-heading">信息录入</div>
+        <div class="panel-body">
+            <form class="form-horizontal" method="post" id="addSubForm" role="form">
+                <input type="hidden" name="_csrf" value="{_csrf}" />
+                <input type="hidden" id="providerId" name="contract[providerId]" value="{contract[0].providerId.id}" />
+                <input type="hidden" id="businessType" name="contract[businessType]" value="{contract[0].businessType}" />
+                <input type="hidden" id="agentId" name="contract[agentId]" value="{contract[0].agentId}">
+                <input type="hidden" id="id" name="contract[id]" value="{contract[0].id}">
+                <div class="form-group">
+                <label for="providername" class="col-sm-1 control-label">供应商</label>
+                <div class="col-sm-2">
+                    <input type="text" name="providername" class="form-control" id="providername" value="{contract[0].providerId.name}" readonly>
+                </div>
+                <label for="agentname" class="col-sm-1 control-label">营销员<span class="required-indicator">*</span></label>
+                <div class="col-sm-2">
+                    <input type="text" name="contract[agentName]" class="form-control" id="agentname" value="{contract[0].agentName}" readonly>
+                </div>
+                <label for="acceptDate" class="col-sm-1 control-label">受理日期</label>
+                <div class="col-sm-2">
+                   <input type="text" name="contract[acceptDate]" class="form-control" value="{@formatDate date="{contract[0].acceptDate}" format="YYYY-MM-DD" required="true"/}" id="acceptDate" readonly>
+                </div>
+                <label for="applicationno" class="col-sm-1 control-label">投保单号</label>
+                <div class="col-sm-2">
+                   <input type="text" name="contract[applicationNo]" class="form-control" id="applicationno" value="{contract[0].applicationNo}" required readonly>
+                </div>
+               			</div>
+               			<div class="form-group">
+               				<label for="initialchargemode" class="col-sm-1 control-label">首缴费方式<span class="required-indicator">*</span></label>
+               				<div class="col-sm-2">
+               					{@baseCode id="chagermode" selectValue="{contract[0].initialChargeMode}" name="contract[initialChargeMode]" base="chargemode" blank="true" required="true"/}
+               				</div>
+               				<label for="companyAbbr" class="col-sm-1 control-label">续缴费方式<span class="required-indicator">*</span></label>
+               				<div class="col-sm-2">
+               					{@baseCode id="chagermode" selectValue="{contract[0].renewalChargeMode}" name="contract[renewalChargeMode]" base="chargemode" blank="true" required="true"/}
+               				</div>
+               				<label for="premiumpreiod" class="col-sm-1 control-label">缴别<span class="required-indicator">*</span></label>
+               				<div class="col-sm-2">
+               				    {@baseCode id="premiumpreiod" selectValue="{contract[0].premiumMode}" name="contract[premiumMode]" base="premiumpreiod" blank="true" required="true"/}
+               				</div>
+               			</div>
+                           <div class="form-group">
+                               <div class="col-sm-12">
+                                   <ul class="nav nav-tabs">
+                                     <li class="active"><a href="#applicant" data-toggle="tab">投保人</a></li>
+                                     <li><a href="#policy" data-toggle="tab">被保人</a></li>
+                                     <li><a href="#Beneficiary" data-toggle="tab">收益人</a></li>
+                                     <li><a href="#coverage" data-toggle="tab">险种</a></li>
+                                   </ul>
+                               </div>
+                          </div>
+                           <div class="form-group">
+                               <div class="col-sm-12 tab-content">
+                                   {! 投保人 !}
+               		            <div class="tab-pane active" id="applicant">
+               			            <div class="form-group">
+               			                    <label for="idtype" class="col-sm-1 control-label">证件类型<span class="required-indicator">*</span></label>
+                                               <div class="col-sm-2">
+               					                {@baseCode id="idtype" selectValue="{contract[0].applicant.aidtype}" name="contract[applicant][aidtype]" base="idtype" blank="true" required="true"/}
+                                               </div>
+                                               <label for="businesslicenceLicenceNO" class="col-sm-1 control-label">证件号码<span class="required-indicator">*</span></label>
+                                               <div class="col-sm-2">
+                                                   <input type="text" name="contract[applicant][aidno]" class="form-control" value="{contract[0].applicant.aidno}" id="businesslicenceLicenceNO" required="true">
+                                               </div>
+               			                    <label for="businesslicenceStartDate" class="col-sm-1 control-label">姓名<span class="required-indicator">*</span></label>
+               			                     <div class="col-sm-2">
+               			                	    <input type="text" name="contract[applicant][applicantname]" class="form-control" value="{contract[0].applicant.applicantname}" id="applicantname"  required="true">
+                                                </div>
+               			                    <label for="asex" class="col-sm-1 control-label">性别<span class="required-indicator">*</span></label>
+                                               <div class="col-sm-2">
+                                                   {@baseCode id="sex" selectValue="{contract[0].applicant.asex}" name="contract[applicant][asex]" base="sex" blank="true" required="true"/}
+                                               </div>
+               			            </div>
+               			            <div class="form-group">
+               			                <label for="abirthday" class="col-sm-1 control-label">生日<span class="required-indicator">*</span></label>
+               			                <div class="col-sm-2">
+               			                         <div class="input-group date date-default" id="datetimepicker">
+                                           			<input class="form-control" name="contract[applicant][abirthday]" size="16"   type="text" value='{@formatDate date="{contract[0].applicant.abirthday}" format="YYYY-MM-DD" required="true"/}' readonly>
+                                           				<span class="input-group-addon"><i class="icon-th icon-large"></i></span>
+                                           			</div>
+               			                </div>
+                                           <label for="aemail" class="col-sm-1 control-label">电子邮件</label>
+                                           <div class="col-sm-2">
+                                                      <input type="text" name="contract[applicant][aemail]" class="form-control" value="{contract[0].applicant.aemail}" id="aemail" >
+                                           </div>
+                                           <label for="contractmobile" class="col-sm-1 control-label">手机</label>
+                                           <div class="col-sm-2">
+                                                      <input type="text" name="contract[applicant][contractmobile]" class="form-control" value="{contract[0].applicant.contractmobile}" id="contractmobile" required>
+                                           </div>
+                                           <label for="telephone" class="col-sm-1 control-label">电话</label>
+                                           <div class="col-sm-2">
+                                                      <input type="text" name="contract[applicant][telephone]" class="form-control" value="{contract[0].applicant.telephone}" id="telephone" >
+                                           </div>
+                                        </div>
+               			            <div class="form-group">
+                                            <label for="address" class="col-sm-1 control-label">联系地址</label>
+                                           <div class="col-sm-5">
+                                                      <input type="text" name="contract[applicant][address]" class="form-control" value="{contract[0].applicant.address}" id="address" required>
+                                           </div>
+                                       </div>
+                               	</div>
+                               	{! 被保人 !}
+                                   <div class="tab-pane" id="policy">
+                			            <div class="form-group">
+               			                <label for="prelations" class= "col-sm-1 control-label">投保人关系<span class="required-indicator">*</span></label>
+               			                <div class="col-sm-2">
+                                           {@baseCode id="relations" selectValue="{contract[0].policy.prelations}" name="contract[policy][prelations]" base="relations" blank="true" required="true"/}
+               			                </div>
+               			                <label for="pidtype" class="col-sm-1 control-label">证件类型<span class="required-indicator">*</span></label>
+               			                <div class="col-sm-2">
+               			                 {@baseCode id="idtype" selectValue="{contract[0].policy.pidtype}" name="contract[policy][pidtype]" base="idtype" blank="true" required="true"/}
+               			                </div>
+               			                <label for="pidno" class="col-sm-1 control-label">证件号<span class="required-indicator">*</span></label>
+               			                <div class="col-sm-2">
+               								<input type="text" name="contract[policy][pidno]" class="form-control" id="pidno" value="{contract[0].policy.pidno}" required>
+               			                </div>
+                                           <label for="insurename" class=" col-sm-1 control-label">姓名<span class="required-indicator">*</span></label>
+                                           <div class="col-sm-2">
+                                               <input type="text" name="contract[policy][insurename]" class="form-control" id="insurename" value="{contract[0].policy.insurename}" required>
+                                           </div>
+               			            </div>
+                                   </div>
+                                   <div class="tab-pane" id="Beneficiary">
+                                   	<div class="form-group">
+                                           <label for="brelations" class= "col-sm-1 control-label">投保人关系<span class="required-indicator">*</span></label>
+                                             <div class="col-sm-2">
+                                             {@baseCode id="relations" selectValue="{contract[0].beneficiary.brelations}" name="contract[beneficiary][brelations]" base="relations" blank="true" required="true"/}
+                                             </div>
+                                             <label for="bidtype" class="col-sm-1 control-label">证件类型</label>
+                                             <div class="col-sm-2">
+                                              {@baseCode id="pidtype" selectValue="{contract[0].beneficiary.bidtype}" name="contract[beneficiary][bidtype]" base="idtype" blank="true" required="true"/}
+                                             </div>
+                                             <label for="bidno" class="col-sm-1 control-label">证件号</label>
+                                             <div class="col-sm-2">
+                                                 <input type="text" name="contract[beneficiary][bidno]" class="form-control" id="bidno" value={contract[0].beneficiary.bidno} >
+                                             </div>
+                                             <label for="binsurename" class=" col-sm-1 control-label">姓名</label>
+                                             <div class="col-sm-2">
+                                                 <input type="text" name="contract[beneficiary][binsurename]" class="form-control" id="binsurename" value={contract[0].beneficiary.binsurename} >
+                                             </div>
+                                       </div>
+                                       <div class="form-group">
+                                         <label for="insuretype" class= "col-sm-1 control-label">收益类型</label>
+                                         <div class="col-sm-2">
+                                         {@baseCode id="insuretype" selectValue="{contract[0].beneficiary.insuretype}" name="contract[beneficiary][insuretype]" base="insuretype" blank="true" required="true"/}
+                                         </div>
+                                   </div>
+               					</div>
+                                   <div class="tab-pane" id="coverage">
+                                       <div class="form-group" style=" margin-right: 0px;">
+                                           <table class="table" style="margin-left: 37px;width: 96%">
+                                               <tr>
+                                                   <th class="col-md-2">商品名称<span class="required-indicator">*</span></th>
+                                                   <th class="col-md-1">保险金额<span class="required-indicator">*</span></th>
+                                                   <th class="col-md-1">保费<span class="required-indicator">*</span></th>
+                                                   <th class="col-md-1">年期<span class="required-indicator">*</span></th>
+                                                   <th class="col-md-1">价保<span class="required-indicator">*</span></th>
+                                                   <th class="col-md-1">操作</th>
+                                               </tr>
+                                               <tbody id="CoverageList">
+
+                                               </tbody>
+                                                <tr>
+                                                     <td>合计</td>
+                                                     <td>
+                                                       <input type="text" class="form-control" disabled='true' id="faceamount" name="faceamount"  />
+                                                     </td>
+                                                     <td>
+                                                       <input type="text"  class="form-control"  disabled='true' id="modalprem" name="modalprem"   />
+                                                     </td>
+                                                     <td>&nbsp;</td>
+                                                     <td>
+                                                       <input type="text"  class="form-control"   size="14"  disabled='true' id="valuepremsum" name="valuepremsum"   />
+                                                     </td>
+                                                     <td><a href="javascript:void(0)" onclick="adds()">新增</a></td>
+                                                 </tr>
+                                           </table>
+                                       </div>
+                                   </div>
+                               </div>
+                          </div>
+               			<div class="form-group">
+               				<div class="col-sm-12">
+                                <div class="btn-toolbar" role="toolbar">
+                                    <div class="btn-group">
+                                        <button type="submit" class="btn btn-primary">提交</button>
+                                    </div>
+                                    <div class="btn-group">
+                                        <a id="returnButton" onclick="goback()"  class="btn btn-default">返回</button>
+                                    </div>
+                                </div>
+                            </div>
+               			</div>
+               		<div style="visibility:hidden ">
+                       <table>
+                           <tbody id="tb_example">
+                                       <tr>
+                                           <td ><a href="#" ><input type="text"  class="form-control" id="Productname" name="xz[Productname]"  required/></a></td>
+                                           <td ><input type="text" class="form-control"  id="Faceamout"        name="xz[Faceamout]" required/> </td>
+                                           <td ><input type="text" class="form-control"  id="Modalprem"        name="xz[Modalprem]" required /> </td>
+                                           <td ><input type="text" class="form-control"  id="Premiumperiod"    name="xz[Premiumperiod]" required/></td>
+                                           <td ><input type="text" class="form-control"  id="valueprem"        readonly  name="xz[valueprem]" required /></td>
+                                           <td >
+                                               <a href="#">删除</a>
+                                           </td>
+                                       </tr>
+                           </tbody>
+                       </table>
+                       </div>
+                       </form>
+        </div>
+    </div>
+</div>
+{/content}
+{<script}
+<script type="text/javascript">
+    var dataOptions = {
+    format : "yyyy-mm-dd",
+    autoclose : true,
+    language : 'zh-CN',
+    todayHighlight : true
+    };
+
+    $('.date-default').datepicker(dataOptions);
+    var reg = /^[0-9]+(.[0-9]{2})?$/;
+    var regs = /^[1-9]\d*$/;
+    var countriesArray = $.map({"code":"TABYJ:健康险"},function (value, key) { return { value: value, data: key }; });
+
+    var $coverage_num = 0;
+    var $tab_flag = 'tab_1';
+
+    function getValueprem(obj){
+
+        $pname      = obj.find('td:eq(0)').find('input:eq(0)').val();
+        $Faceamout  = obj.find('td:eq(1)').find('input:eq(0)').val();
+        $modelPrem  = obj.find('td:eq(2)').find('input:eq(0)').val();
+        $period     = obj.find('td:eq(3)').find('input:eq(0)').val();
+        if($pname == '' || $modelPrem=='' || $period==''){
+            return;
+        }
+        $Product        = obj.find('td:eq(0)').find('input:eq(0)').val().split(':');
+        $Productcode    = $Product[0];
+        $Premiumperiod  = obj.find('td:eq(3)').find('input:eq(0)').val();
+        $providerid     = $('#providerId').val();
+        $Premiummode    = $('#premiumMode').val();
+        $modalprem      = obj.find('td:eq(2)').find('input:eq(0)').val();
+
+        $.ajax({
+                url:"/biz/contract/getValuePrem",
+                type:'get',
+                data:{Productcode:$Productcode,
+                      Premiumperiod:$Premiumperiod,
+                      channeltype:'A' ,
+                      providerid:$providerid ,
+                      Premiummode:$Premiummode,
+                      modalprem: $modalprem},
+                dataType:'json',
+                timeout:50000,
+                success: function(result) {
+                    if(result.length > 0 ){
+                        obj.find('td:eq(4)').find('input:eq(0)').val(result[0]['valuepremrate']*$modalprem/100);
+                        sumpremamount();
+                    }else{
+                         obj.find('td:eq(4)').find('input:eq(0)').val('');
+                     var some_html = '<br><div class="alert alert-danger fade in">';
+                         some_html += '<label>获取费率失败,不存在详细费率</label>';
+                         some_html += '</div>';
+                         bootbox.alert(some_html);
+                    }
+                }
+            });
+        };
+
+    function sumAmount(){
+        if(typeof(document.getElementById('CoverageList').getElementsByTagName('tr')) == "undefined"){
+            var  some_html = '<div class="alert alert-danger fade in"><label>价保无法合计</label></div>';
+            bootbox.alert(some_html);
+            return false;
+        }
+        var objs =  document.getElementById('CoverageList').getElementsByTagName('tr');
+        var len  =  objs.length;
+        var FaceamoutSum = 0;
+        var ModalpremSum = 0;
+        var valueprem = 0;
+
+        for(var i=0; i<len; i++){
+            var Faceamout =  objs[i].getElementsByTagName('td');
+            var inputval1  =  Faceamout[1].getElementsByTagName('input');
+            var inputval2 =   Faceamout[2].getElementsByTagName('input');
+            var inputval  =  Faceamout[4].getElementsByTagName('input');
+
+        if(inputval1[0].value == '' || inputval1[0].value == 0) {
+             inputval1[0].value = inputval2[0].value;
+        }
+
+            FaceamoutSum  += Number(inputval1[0].value);
+            ModalpremSum  += Number(inputval2[0].value);
+            valueprem  += Number(inputval[0].value);
+        }
+           $('#faceamount').attr('value',FaceamoutSum.toFixed(2));
+           $('#modalprem').attr('value',ModalpremSum.toFixed(2));
+           $('#valuepremsum').attr('value',valueprem.toFixed(2));
+       }
+
+    function sumpremamount(){
+       if(typeof(document.getElementById('CoverageList').getElementsByTagName('tr')) == "undefined"){
+            var  some_html = '<div class="alert alert-danger fade in"><label>价保无法合计</label></div>';
+            bootbox.alert(some_html);
+            return false;
+        }
+       var objs =  document.getElementById('CoverageList').getElementsByTagName('tr');
+       var len  =  objs.length;
+       var valueprem = 0;
+
+       for(var i=0; i<len; i++){
+           var Faceamout =  objs[i].getElementsByTagName('td');
+           var inputval  =  Faceamout[4].getElementsByTagName('input');
+           valueprem  += Number(inputval[0].value);
+       }
+           $('#valuepremsum').attr('value',valueprem.toFixed(2));
+    }
+
+
+    function adds(){
+        if(10 == $coverage_num) {
+            return;
+        }
+
+        var obj = $('#tb_example').find('tr:eq(0)').clone();
+        $coverage_num += 1;
+
+        obj.find('td:eq(0)').find('input:eq(0)').attr('value', '');
+        obj.find('td:eq(0)').find('input:eq(0)').autocomplete({
+           lookup: countriesArray,
+           minChars: 0,
+           onSelect: function (suggestion) {
+               $('#selection').html('You selected: ' + suggestion.value + ', ' + suggestion.data);
+           }
+        });
+
+        obj.find('td:eq(0)').find('input:eq(0)').blur(function(){
+             getValueprem(obj);
+             sumAmount();
+             sumpremamount();
+        });
+
+        obj.find('td:eq(1)').find('input:eq(0)').attr('value', '');
+        obj.find('td:eq(1)').find('input:eq(0)').blur(function(){
+           if(reg.test(obj.find('td:eq(1)').find('input:eq(0)').val())){
+               getValueprem(obj);
+               sumAmount();
+               sumpremamount();
+           }else{
+               if(obj.find('td:eq(1)').find('input:eq(0)').val()!=''){
+                   obj.find('td:eq(1)').find('input:eq(0)').val('');
+                   obj.find('td:eq(4)').find('input:eq(0)').val('');
+                   var  some_html = '<div class="alert alert-danger fade in"><label>输入格式不正确</label></div>';
+                   bootbox.alert(some_html);
+               }
+           }
+        });
+
+        obj.find('td:eq(2)').find('input:eq(0)').attr('value', '');
+        obj.find('td:eq(2)').find('input:eq(0)').blur(function(){
+               if(reg.test(obj.find('td:eq(2)').find('input:eq(0)').val())){
+                  getValueprem(obj);
+                  sumAmount();
+                  sumpremamount();
+               }else{
+                    if(obj.find('td:eq(2)').find('input:eq(0)').val()!=''){
+                      obj.find('td:eq(2)').find('input:eq(0)').val('');
+                      obj.find('td:eq(4)').find('input:eq(0)').val('');
+                      var  some_html = '<div class="alert alert-danger fade in"><label>输入格式不正确</label></div>';
+                      bootbox.alert(some_html);
+                    }
+               }
+            });
+
+        obj.find('td:eq(3)').find('input:eq(0)').attr('value', '');
+        obj.find('td:eq(3)').find('input:eq(0)').blur(
+           function(){
+               if(regs.test(obj.find('td:eq(3)').find('input:eq(0)').val())){
+                   getValueprem(obj);
+                   sumAmount();
+                   sumpremamount();
+               }else{
+                   if(obj.find('td:eq(3)').find('input:eq(0)').val()!=''){
+                     obj.find('td:eq(3)').find('input:eq(0)').val('');
+                     obj.find('td:eq(4)').find('input:eq(0)').val('');
+                     var  some_html = '<div class="alert alert-danger fade in"><label>输入格式不正确</label></div>';
+                     bootbox.alert(some_html);
+                   }
+               }
+           });
+
+        obj.find('td:eq(4)').find('input:eq(0)').attr('value', '');
+        obj.find('td:eq(5)').find('input:eq(0)').attr('value', '');
+        obj.find('td:eq(5)').find('input:eq(0)').attr('style', 'border:0;');
+        obj.find('td:eq(5)').find('a:eq(0)').unbind();
+        obj.find('td:eq(5)').find('a:eq(0)').click(
+          function() {
+                deleteCoverage(obj);
+          }
+        );
+           obj.appendTo($('#CoverageList'));
+       };
+
+    function deleteCoverage(obj) {
+        if(1 == $coverage_num) {
+            var  some_html = '<div class="alert alert-danger fade in"><label>请至少选填一个险种</label></div>';
+            bootbox.alert(some_html);
+            return;
+        }
+        obj.remove();
+        $coverage_num--;
+        sumAmount();
+        sumpremamount();
+    };
+
+    function initBind() {
+            {#children}
+               var pn1 = '{.productName}';
+               var fm1=  '{.faceaMout}';
+               var mp1 = '{.totalModalPrem}';
+               var pr1 = '{.PremiumPeriod}';
+               var vp1 = '{.valuePrem}';
+
+               var obj = $('#tb_example').find('tr:eq(0)').clone();
+                  $coverage_num += 1;
+
+                  obj.find('td:eq(0)').find('input:eq(0)').attr('value', pn1);
+                  obj.find('td:eq(0)').find('input:eq(0)').autocomplete({
+                      lookup: countriesArray,
+                      minChars: 0,
+                      onSelect: function (suggestion) {
+                          $('#selection').html('You selected: ' + suggestion.value + ', ' + suggestion.data);
+                      }
+                  });
+
+               obj.find('td:eq(0)').find('input:eq(0)').blur(function(){
+                    getValueprem(obj);
+                    sumAmount();
+                    sumpremamount();
+                });
+
+              obj.find('td:eq(1)').find('input:eq(0)').attr('value', mp1);
+              obj.find('td:eq(1)').find('input:eq(0)').blur(function(){
+                  if(reg.test(obj.find('td:eq(1)').find('input:eq(0)').val())){
+                      getValueprem(obj);
+                      sumAmount();
+                      sumpremamount();
+                  }else{
+                      if(obj.find('td:eq(1)').find('input:eq(0)').val()!=''){
+                          obj.find('td:eq(1)').find('input:eq(0)').val('');
+                          obj.find('td:eq(4)').find('input:eq(0)').val('');
+                          var  some_html = '<div class="alert alert-danger fade in"><label>输入格式不正确</label></div>';
+                          bootbox.alert(some_html);
+                      }
+                  }
+               });
+
+              obj.find('td:eq(2)').find('input:eq(0)').attr('value', pr1);
+              obj.find('td:eq(2)').find('input:eq(0)').blur(function(){
+                          if(reg.test(obj.find('td:eq(2)').find('input:eq(0)').val())){
+                             getValueprem(obj);
+                             sumAmount();
+                             sumpremamount();
+                          }else{
+                               if(obj.find('td:eq(2)').find('input:eq(0)').val()!=''){
+                                 obj.find('td:eq(2)').find('input:eq(0)').val('');
+                                 obj.find('td:eq(4)').find('input:eq(0)').val('');
+                                 var  some_html = '<div class="alert alert-danger fade in"><label>输入格式不正确</label></div>';
+                                 bootbox.alert(some_html);
+                               }
+                          }
+                   });
+
+                  obj.find('td:eq(3)').find('input:eq(0)').attr('value', pr1);
+                  obj.find('td:eq(3)').find('input:eq(0)').blur(
+                      function(){
+                              if(regs.test(obj.find('td:eq(3)').find('input:eq(0)').val())){
+                                  getValueprem(obj);
+                                  sumAmount();
+                                  sumpremamount();
+                              }else{
+                                  if(obj.find('td:eq(3)').find('input:eq(0)').val()!=''){
+                                    obj.find('td:eq(3)').find('input:eq(0)').val('');
+                                    obj.find('td:eq(4)').find('input:eq(0)').val('');
+                                    var  some_html = '<div class="alert alert-danger fade in"><label>输入格式不正确</label></div>';
+                                    bootbox.alert(some_html);
+                                  }
+                              }
+                      });
+
+                  obj.find('td:eq(4)').find('input:eq(0)').attr('value', vp1);
+                  obj.find('td:eq(5)').find('input:eq(0)').attr('value', '');
+                  obj.find('td:eq(5)').find('input:eq(0)').attr('style', 'border:0;');
+                  obj.find('td:eq(5)').find('a:eq(0)').unbind();
+                  obj.find('td:eq(5)').find('a:eq(0)').click(
+                     function() {
+                           deleteCoverage(obj);
+                     }
+                  );
+                  obj.appendTo($('#CoverageList'));
+            {/children}
+
+    };
+
+    $(document).ready(function(){
+        initBind();
+    });
+
+    function goBack(){
+        window.location.href="/biz/bizAccept/bizAcceptQuery";
+    }
+
+    $("#addSubForm").validate({
+        submitHandler:function(form){
+            $(":button").attr("disabled","true");
+            form.action = '/biz/contract/updateContract';
+            form.submit();
+        },
+        focusCleanup:true
+    });
+    </script>
+{/script}

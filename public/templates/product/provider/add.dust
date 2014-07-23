@@ -1,0 +1,53 @@
+{>"layouts/master" /} 
+{<content}
+<div class="panel panel-primary">
+  <div class="panel-heading">信息录入</div>
+  <div class="panel-body">
+		<form class="form-horizontal" method="post" id="addSubForm" role="form">
+			<input type="hidden" name="_csrf" value="{_csrf}" />
+			<div class="form-group">
+				<label for="name" class="col-sm-1 control-label">供应商名称<span class="required-indicator">*</span></label>
+				<div class="col-sm-2">
+					<input type="text" name="provider[name]" class="form-control" id="name" value="{provider.name}" required>
+				</div>
+				<label for="abbr" class="col-sm-1 control-label">供应商简称<span class="required-indicator">*</span></label>
+				<div class="col-sm-2">
+					<input type="text" name="provider[abbr]" class="form-control" id="abbr" value="{provider.abbr}" required>
+				</div>
+				<label for="type" class="col-sm-1 control-label">供应商类型<span class="required-indicator">*</span></label>
+				<div class="col-sm-2">
+					<input type="text" name="provider[type]" class="form-control" id="type" value="{provider.type}" required>
+				</div>
+			</div>
+			<div class="form-group">
+            				<div class="col-sm-12">
+            				<div class="btn-toolbar" role="toolbar">
+            					<div class="btn-group">
+            						<button type="submit" class="btn btn-primary">提交</button>
+            					</div>
+            					<div class="btn-group">
+            						<button type="button" class="btn btn-default">返回</button>
+            					</div>
+            			</div>
+		</form>
+	</div>
+</div>
+{/content}
+{<script}
+<script type="text/javascript">
+	$('.date').datepicker({
+		format : "yyyy-mm-dd",
+		autoclose : true,
+		language : 'zh-CN',
+		todayHighlight : true
+	});
+	$("#addSubForm").validate({
+		submitHandler:function(form){
+			$(":button").attr("disabled","true");  
+			form.action = 'add';
+            form.submit();
+        },
+        focusCleanup:true
+	});
+</script> 
+{/script}

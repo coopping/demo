@@ -1,0 +1,272 @@
+{>"layouts/master" /}
+{<content}
+<div class="panel panel-primary">
+    <div class="panel-heading">信息录入</div>
+        <div class="panel-body">
+          {#contract}
+                <div class="form-group">
+                    <label for="providername" class="col-sm-1 control-label">供应商</label>
+                    <div class="col-sm-2">
+                        <p class="form-control">{.providerId.name}</p>
+                    </div>
+                    <label for="agentname" class="col-sm-1 control-label">营销员</label>
+                    <div class="col-sm-2">
+                        <p class="form-control">{.agentName}</p>
+                    </div>
+                     <label for="applicationno" class="col-sm-1 control-label">投保单号<span class="required-indicator">*</span></label>
+                       <div class="col-sm-2">
+                          <p class="form-control">
+                           {.applicationNo}
+                           </p>
+                       </div>
+                       <label for="acceptDate" class="col-sm-1 control-label">保单号码</label>
+                       <div class="col-sm-2">
+                           <p class="form-control"> {.contractNo}</p>
+                       </div>
+                </div>
+                <div class="form-group">
+                    <label for="initialchargemode" class="col-sm-1 control-label">缴费方式<span class="required-indicator">*</span></label>
+                    <div class="col-sm-2">
+                        <p class="form-control">
+                            {@baseCode code="{.initialChargeMode}" base="chargemode" required="true"/}
+                        </p>
+                    </div>
+                       <label for="approveDate" class="col-sm-1 control-label">出单日期</label>
+                       <div class="col-sm-2">
+                          <p class="form-control">
+                             {@formatDate date="{contract.approveDate}" format="YYYY-MM-DD" required="true"/}
+                         </p>
+                       </div>
+                       <label for="paidupDate" class="col-sm-1 control-label">缴费日期</label>
+                       <div class="col-sm-2">
+                              <p class="form-control">
+                             {@formatDate date="{contract.paidupDate}" format="YYYY-MM-DD" required="true"/}
+                             </p>
+                      </div>
+                      <label for="effectiveDate"  class="col-sm-1 control-label">生效日期</label>
+                      <div class="col-sm-2">
+                          <p class="form-control">
+                           {@formatDate  date="{contract.effectiveDate}" format="YYYY-MM-DD" required="true"/}
+                           </p>
+                      </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <ul class="nav nav-tabs">
+                          <li class="active"><a href="#applicant" data-toggle="tab">投保人</a></li>
+                          <li><a href="#policy" data-toggle="tab">被保人</a></li>
+                         {! {@if cond="{.providerId.type} == 1"}
+                             <li><a href="#Beneficiary" data-toggle="tab">收益人</a></li>
+                          {:else}
+                             <li><a href="#Beneficiary" data-toggle="tab">车辆信息</a></li>
+                          {/if}
+                          !}
+                          <li><a href="#Beneficiary" data-toggle="tab">车辆信息</a></li>
+                          <li><a href="#coverage" data-toggle="tab">险种</a></li>
+                        </ul>
+                    </div>
+               </div>
+                <div class="form-group">
+                    <div class="col-sm-12 tab-content">
+                        {! 投保人 !}
+                        <div class="tab-pane active" id="applicant">
+                            <div class="form-group">
+                                    <label for="idtype" class="col-sm-1 control-label">证件类型</label>
+                                    <div class="col-sm-2">
+                                      <p class="form-control">
+                                        {@baseCode code="{.applicant.aidtype}" base="idtype" required="true"/}
+                                      </p>
+                                    </div>
+                                    <label for="businesslicenceLicenceNO" class="col-sm-1 control-label">证件号码</label>
+                                    <div class="col-sm-2">
+                                        <p class="form-control">{applicant.aidno}</p>
+                                    </div>
+                                    <label for="applicantname" class="col-sm-1 control-label">姓名</label>
+                                     <div class="col-sm-2">
+                                         <p class="form-control">{applicant.applicantname}</p>
+                                     </div>
+                                    <label for="asex" class="col-sm-1 control-label">性别</label>
+                                    <div class="col-sm-2">
+                                          <p class="form-control">
+                                            {@baseCode  code="{applicant.asex}" base="sex" required="true"/}
+                                          </p>
+                                    </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">生日</label>
+                                <div class="col-sm-2">
+                                     <p class="form-control">
+                                            {@formatDate  date="{.applicant.abirthday}" format="YYYY-MM-DD" required="true"/}
+                                     </p>
+                                </div>
+                                <label  class="col-sm-1 control-label">电子邮件</label>
+                                <div class="col-sm-2">
+                                     <p class="form-control">
+                                            {.applicant.aemail}
+                                     </p>
+                                </div>
+                                <label  class="col-sm-1 control-label">手机</label>
+                                <div class="col-sm-2">
+                                     <p class="form-control">
+                                            {.applicant.contractmobile}
+                                     </p>
+                                </div>
+                                <label class="col-sm-1 control-label">电话</label>
+                                <div class="col-sm-2">
+                                     <p class="form-control">{.applicant.telephone}</p>
+                                </div>
+                             </div>
+                            <div class="form-group">
+                                 <label  class="col-sm-1 control-label">联系地址</label>
+                                 <div class="col-sm-5">
+                                    <p class="form-control">{.applicant.address}</p>
+                                 </div>
+                            </div>
+                        </div>
+                        {! 被保人 !}
+                        <div class="tab-pane" id="policy">
+                            <div class="form-group">
+                                <label for="prelations" class= "col-sm-1 control-label">投保人关系</label>
+                                <div class="col-sm-2">
+                                    <p class="form-control">{@baseCode code="{.policy.prelations}" base="relations"  required="true"/}</p>
+                                </div>
+                                <label for="pidtype" class="col-sm-1 control-label">证件类型</label>
+                                <div class="col-sm-2">
+                                     <p class="form-control">
+                                         {@baseCode code="{.policy.pidtype}" base="idtype" required="true"/}
+                                     </p>
+                                </div>
+                                <label for="pidno" class="col-sm-1 control-label">证件号</label>
+                                <div class="col-sm-2">
+                                     <p class="form-control">{.policy.pidno}</p>
+                                </div>
+                                <label for="insurename" class=" col-sm-1 control-label">姓名</label>
+                                <div class="col-sm-2">
+                                    <p class="form-control">{.policy.insurename}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {! 车辆信息!}
+                            <div class="tab-pane" id="Beneficiary">
+                                <div class="form-group">
+                                     <label for="vehicleType" class= "col-sm-1 control-label">车辆种类</label>
+                                      <div class="col-sm-2">
+                                        <p class="form-control">
+                                        {@baseCode  code="{.policyVehicle.vehicleType}"  base="vehicleTypes" blank="true" required="true"/}
+                                        </p>
+                                      </div>
+                                      <label for="vehicleModel" class="col-sm-1 control-label">车辆型号</label>
+                                      <div class="col-sm-2">
+                                            <p class="form-control">{.policyVehicle.vehicleModel}</p>
+                                      </div>
+                                      <label for="vehicleLicenceNo" class="col-sm-1 control-label">车牌号码</label>
+                                      <div class="col-sm-2">
+                                           <p class="form-control">{.policyVehicle.vehicleLicenceNo}</p>
+                                      </div>
+                                      <label for="usageTypes" class=" col-sm-1 control-label">使用性质</label>
+                                      <div class="col-sm-2">
+                                         <p class="form-control">
+                                            {@baseCode  code="{.policyVehicle.usageType}" base="usageTypes" blank="true" required="true"/}
+                                        </p>
+                                      </div>
+                                </div>
+                                <div class="form-group">
+                                      <label for="frameNo" class= "col-sm-1 control-label">车架编号</label>
+                                      <div class="col-sm-2">
+                                         <p class="form-control"> {.policyVehicle.frameNo}</p>
+                                      </div>
+                                      <label for="vehicleColor" class="col-sm-1 control-label">车身颜色</label>
+                                      <div class="col-sm-2">
+                                            <p class="form-control"> {.policyVehicle.vehicleColor}</p>
+                                      </div>
+                                      <label for="purchaseinVoiceNo" class="col-sm-1 control-label">购车发票</label>
+                                      <div class="col-sm-2">
+                                          <p class="form-control">{.policyVehicle.purchaseinVoiceNo}</p>
+                                      </div>
+                                      <label for="purchaseDate" class=" col-sm-1 control-label">购置日期</label>
+                                      <div class="col-sm-2">
+                                           <p class="form-control">
+                                              {@formatDate date="{.policyVehicle.purchaseDate}" format="YYYY-MM-DD" required="true"/}
+                                          </p>
+                                      </div>
+                                </div>
+                                <div class="form-group">
+                                      <label for="vehicleOwnerName" class= "col-sm-1 control-label">车辆所有者</label>
+                                      <div class="col-sm-2">
+                                           <p class="form-control">{.policyVehicle.vehicleOwnerName}</p>
+                                      </div>
+                                      <label for="engineNo" class="col-sm-1 control-label">发动机编号</label>
+                                      <div class="col-sm-2">
+                                         <p class="form-control"> {.policyVehicle.engineNo}</p>
+                                      </div>
+                                      <label for="madeDate" class="col-sm-1 control-label">制造年月</label>
+                                      <div class="col-sm-2">
+                                           <p class="form-control">
+                                            {@formatDate date="{.policyVehicle.madeDate}" format="YYYY-MM-DD" required="true"/}
+                                            </p>
+                                      </div>
+                                </div>
+                            </div>
+                        <div class="tab-pane" id="coverage">
+                            <div class="form-group" style=" margin-right: 0px;">
+                                <table class="table" style="margin-left: 37px;width: 96%">
+                                    <tr>
+                                        <th class="col-md-2">商品名称</th>
+                                        <th class="col-md-1">保险金额</th>
+                                        <th class="col-md-1">保费</th>
+                                        <th class="col-md-1">年期</th>
+                                        <th class="col-md-1">价保</th>
+                                    </tr>
+                                    <tbody id="CoverageList">
+                                    {#.children}
+                                    <tr>
+                                        <td ><a href="#" ><input type="text"  class="form-control"  value="{.productName}"  /></a></td>
+                                        <td ><input type="text" class="form-control"  value="{.faceaMout}"/> </td>
+                                        <td ><input type="text" class="form-control"  value="{.totalModalPrem}"  /> </td>
+                                        <td ><input type="text" class="form-control"  value="{.PremiumPeriod}"/></td>
+                                        <td ><input type="text" class="form-control"  value="{.valuePrem}"  /></td>
+                                    </tr>
+                                    {/.children}
+                                    </tbody>
+                                     <tr>
+                                          <td>合计</td>
+                                          <td>
+                                            <input type="text" class="form-control" disabled='true' value="{.faceaMoutTotle}"   />
+                                          </td>
+                                          <td>
+                                            <input type="text"  class="form-control"  disabled='true'value="{.totalModalPrem}"    />
+                                          </td>
+                                          <td>&nbsp;</td>
+                                          <td>
+                                            <input type="text"  class="form-control"   size="14"  disabled='true' value="{.valuePrem}"    />
+                                          </td>
+                                      </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="btn-group">
+                                <a id="returnButton" onclick="goBack()"  class="btn btn-default">返回</button>
+                            </div>
+                           </div>
+                    </div>
+            		<div style="visibility:hidden ">
+                        <table>
+                            <tbody id="tb_example">
+                            </tbody>
+                        </table>
+                    </div>
+                 {/contract}
+        </div>
+    </div>
+</div>
+{/content}
+<script type="text/javascript">
+    function goBack(){
+        window.location.href="/biz/contract/contractQuery";
+    }
+</script>
+

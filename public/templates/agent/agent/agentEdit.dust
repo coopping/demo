@@ -1,0 +1,326 @@
+{>"layouts/master" /}
+{<content}
+<div class="panel panel-primary">
+  <div class="panel-heading">信息录入</div>
+  <div class="panel-body">
+		<form class="form-horizontal" method="post" id="addSubForm" role="form">
+		{#agentBroker}
+			<input type="hidden" name="_csrf" value="{_csrf}" />
+			<input type="hidden" name="agentBroker[id]" value="{id}" />
+			    <div class="form-group">
+                    <label for="agentType" class="col-sm-1 control-label">代理人类型<span class="required-indicator">*</span></label>
+                    <div class="col-sm-2">
+                            {@baseCode id="agentType" selectValue="{agentType}" name="agentBroker[agentType]" base="agentType" blank="true" required="true"/}
+                    </div>
+                    <label for="agentName" class="col-sm-1 control-label">姓名<span class="required-indicator">*</span></label>
+                    <div class="col-sm-2">
+                        <input  type="text" name="agentBroker[agentName]" class="form-control" value="{agentName}"  required>
+                    </div>
+                    <label for="education" class="col-sm-1 control-label">学历</label>
+                    <div class="col-sm-2">
+                            {@baseCode id="education" selectValue="{.education}" name="agentBroker[education]" base="education" blank="true"/}
+                    </div>
+                    <label for="idType" class="col-sm-1 control-label">证件类型<span class="required-indicator">*</span></label>
+                    <div class="col-sm-2">
+                            {@baseCode id="idtype" selectValue="{.idType}" name="agentBroker[idType]" base="idtype" blank="true" required="true"/}
+                    </div>
+			    </div>
+                <div class="form-group">
+                    <label for="idNo" class="col-sm-1 control-label">证件号<span class="required-indicator">*</span></label>
+                    <div class="col-sm-2">
+                        <input type="text" name="agentBroker[idNo]" class="form-control" id="idNo" value="{.idNo}" required>
+                    </div>
+                    <label for="sex" class="col-sm-1 control-label">性别<span class="required-indicator">*</span></label>
+                    <div class="col-sm-2">
+                          {@baseCode id="sex" selectValue="{.sex}" name="agentBroker[sex]" base="sex" blank="true" required="true"/}
+                    </div>
+                    <label for="birthday" class="col-sm-1 control-label">出生日期<span class="required-indicator">*</span></label>
+                    <div class="col-sm-2">
+                        <div class="input-group date date-default" id="datetimepicker">
+                           <input class="form-control" name="agentBroker[birthday]" size="16"  value='{@formatDate date="{.birthday}" format="YYYY-MM-DD" required="true"/}' type="text" required readonly>
+                           <span class="input-group-addon">
+                                 <i class="icon-th icon-large"></i>
+                           </span>
+                       </div>
+                    </div>
+                    <label for="contractMobile" class="col-sm-1 control-label">手机号码<span class="required-indicator">*</span></label>
+                    <div class="col-sm-2">
+                        <input type="text" name="agentBroker[contractMobile]" class="form-control" id="contractMobile" value="{.contractMobile}" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="telephone" class="col-sm-1 control-label">联系电话</label>
+                    <div class="col-sm-2">
+                        <input type="text" name="agentBroker[telephone]" class="form-control" id="telephone" value="{.telephone}" >
+                    </div>
+                    <label for="address" class="col-sm-1 control-label">联系地址<span class="required-indicator">*</span></label>
+                    <div class="col-sm-2">
+                        <input type="text" name="agentBroker[address]" class="form-control" id="address" value="{.address}" required>
+                    </div>
+                    <label for="email" class="col-sm-1 control-label">电子邮箱</label>
+                    <div class="col-sm-2">
+                        <input type="text" name="agentBroker[email]" class="form-control" id="email" value="{.email}" >
+                    </div>
+                    <label for="signingTime" class="col-sm-1 control-label">签约次数</label>
+                    <div class="col-sm-2">
+                        <input type="text" name="agentBroker[signingTime]" class="form-control" id="signingTime" value="{.signingTime}" >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="customeridNo" class="col-sm-1 control-label">基本法<span class="required-indicator">*</span></label>
+                    <div class="col-sm-2">
+                            {@baseCode id="caseMain" selectValue="{.caseMain}" name="agentBroker[caseMain]" base="caseMain" blank="true" required="true"/}
+                    </div>
+                    <label for="agentLevel" class="col-sm-1 control-label">入司职级<span class="required-indicator">*</span></label>
+                    <div class="col-sm-2">
+                            {@baseCode id="agentLevel" selectValue="{.agentLevel}" name="agentBroker[agentLevel]" base="agentLevel" blank="true" required="true"/}
+                    </div>
+                    <label for="providerCode" class="col-sm-1 control-label">入司日期<span class="required-indicator">*</span></label>
+                    <div class="col-sm-2">
+                        <div class="input-group date date-default" id="datetimepicker">
+                           <input class="form-control" name="contract[approveDate]" size="16"  value='{@formatDate date="{.signing}" format="YYYY-MM-DD" required="true"/}'  type="text" required readonly>
+                           <span class="input-group-addon">
+                                 <i class="icon-th icon-large"></i>
+                           </span>
+                        </div>
+                    </div>
+                    <label for="acceptNum" class="col-sm-1 control-label">状态<span class="required-indicator">*</span></label>
+                    <div class="col-sm-2">
+                            {@baseCode id="agentstatus" selectValue="{.agentStatus}" name="agentBroker[agentStatus]" base="agentstatus" blank="true" required="true"/}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="certificateNo" class="col-sm-1 control-label">证书号</label>
+                    <div class="col-sm-2">
+                        <input type="text" name="agentBroker[certificateNo]" class="form-control" id="certificateNo" value="{.certificateNo}" >
+                    </div>
+                    <label for="startDate" class="col-sm-1 control-label">生效日期</label>
+                    <div class="col-sm-2">
+                         <div class="input-group date date-default" id="datetimepicker">
+                            <input class="form-control" name="agentBroker[startDate]" size="16"  value='{@formatDate date="{.startDate}" format="YYYY-MM-DD" required="true"/}'  type="text"  readonly>
+                            <span class="input-group-addon">
+                                  <i class="icon-th icon-large"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <label for="endDate" class="col-sm-1 control-label">截止日期</label>
+                        <div class="col-sm-2">
+                          <div class="input-group date date-default" id="datetimepicker">
+                               <input class="form-control" name="agentBroker[endDate]" value='{@formatDate date="{.endDate}" format="YYYY-MM-DD" required="true"/}' size="16"   type="text" readonly>
+                               <span class="input-group-addon">
+                                     <i class="icon-th icon-large"></i>
+                               </span>
+                          </div>
+                        </div>
+                    <div id="branchInfo"></div>
+                </div>
+
+			  <div class="form-group">
+                    <div class="col-sm-12">
+                        <div class="btn-toolbar" role="toolbar">
+                            <div class="btn-group">
+                                <button type="submit" class="btn btn-primary">提交</button>
+                            </div>
+                            <div class="btn-group">
+                                <button id="returnButton" onclick="goBack()" type="button" class="btn btn-default">返回</button>
+                            </div>
+                        </div>
+                    </div>
+              </div>
+            {/agentBroker}
+		</form>
+		</div>
+	</div>
+</div>
+{/content}
+<script src="/js/jquery.complexify.js"></script>
+{<script}
+    <script type="text/javascript">
+        var dataOptions = {
+            format : "yyyy-mm-dd",
+            autoclose : true,
+            language : 'zh-CN',
+            todayHighlight : true
+        };
+        $('.date-default').datepicker(dataOptions);
+        function goBack(){
+            window.location.href="/agent/agent/agentQuery";
+        }
+
+        $("#addSubForm").validate({
+            submitHandler:function(form){
+                $(":button").attr("disabled","true");
+                form.action = '/agent/agent/agentEdit';
+                form.submit();
+            },
+            focusCleanup:true
+        });
+
+        function showBranchInfo() {
+                        var div = $('<div class="form-group"></div>');
+                        div.append('<label  class="col-sm-1 control-label">所属机构<span class="required-indicator">*</span></label>');
+                        div.append('<label class="col-sm-2"><input type="text" name="agentBroker[branchCode]" readonly class="form-control" id="userBranch" value="{agentBroker[0].branchCode}"  required><select id="branch0" class="form-control"><option  value="0">请选择</option></select></label>');
+                        $('#branchInfo').append(div);
+                    }
+                    function showBranchTree() {
+                        $('#branchTree').jstree({
+                            'core': {
+                                'data': JSON.parse('{userBranches|js|s}')
+                            },
+                            ui: {
+                                'theme_name': "checkbox"
+                            },
+                            'checkbox': {
+                                'cascade' : 'up'
+                            },
+                            "plugins": ["checkbox"]
+                        });
+                    }
+
+                    function showBranch0() {
+                        $.get("/system/branches/getBranches?level=0&" + new Date().getTime(), function(data, status, xhr) {
+                            if (status === 'success') {
+                                var branches = data.branches;
+                                var options = '<option value="">请选择</option>';
+                                {@security allowed="ROLE_ADMIN" roles="{logedInUser.roles}"}
+                                options += '<option value="ALL">ALL</option>';
+                                {/security}
+                                for (var i = 0, l = branches.length; i < l; i++) {
+                                    options += '<option  value="' + branches[i].code + '">' + branches[i].code + '-' + branches[i].name + '</option>';
+                                }
+                                $('#branch0').html(options);
+                            } else {
+                                var some_html = '<br><div class="alert alert-danger fade in">';
+                                some_html += '<label>调用后台出错：' + xhr.statusText + '</label>';
+                                some_html += '</div>';
+                                bootbox.alert(some_html);
+                            }
+                        });
+                    }
+                    function showBranch1(selected) {
+                        $.get('/system/branches/getBranches?parent=' + selected + '&' + new Date().getTime(), function(data, status, xhr) {
+                            if (status === 'success') {
+                                $("#branch1").remove();
+                                $("#branch2").remove();
+                                $("#branch3").remove();
+                                $("#branch4").remove();
+                                var branches = data.branches;
+                                if (branches.length > 0) {
+                                    var select = $('<select id="branch1" class="form-control"></select>');
+                                    var options = '<option value="">请选择</option>';
+                                    for (var i = 0, l = branches.length; i < l; i++) {
+                                        options += '<option  value="' + branches[i].code + '">' + branches[i].code + '-' + branches[i].name + '</option>';
+                                    }
+                                    select.append(options);
+                                    $('#branch0').after(select);
+                                    $('#branch1').change(function() {
+                                        var selected = $(this).val();
+                                        $('#userBranch').val(selected);
+                                        showBranch2(selected);
+                                    });
+                                }
+                            } else {
+                                var some_html = '<br><div class="alert alert-danger fade in">';
+                                some_html += '<label>调用后台出错：' + xhr.statusText + '</label>';
+                                some_html += '</div>';
+                                bootbox.alert(some_html);
+                            }
+                        });
+                    }
+                    function showBranch2(selected) {
+                        $.get('/system/branches/getBranches?parent=' + selected + '&' + new Date().getTime(), function(data, status, xhr) {
+                            if (status === 'success') {
+                                $("#branch2").remove();
+                                $("#branch3").remove();
+                                $("#branch4").remove();
+                                var branches = data.branches;
+                                if (branches.length > 0) {
+                                    var select = $('<select id="branch2" class="form-control"></select>');
+                                    var options = '<option value="">请选择</option>';
+                                    for (var i = 0, l = branches.length; i < l; i++) {
+                                        options += '<option  value="' + branches[i].code + '">' + branches[i].code + '-' + branches[i].name + '</option>';
+                                    }
+                                    select.append(options);
+                                    $('#branch1').after(select);
+                                    $('#branch2').change(function() {
+                                        var selected = $(this).val();
+                                        $('#userBranch').val(selected);
+                                        showBranch3(selected);
+                                    });
+                                }
+                            } else {
+                                var some_html = '<br><div class="alert alert-danger fade in">';
+                                some_html += '<label>调用后台出错：' + xhr.statusText + '</label>';
+                                some_html += '</div>';
+                                bootbox.alert(some_html);
+                            }
+                        });
+                    }
+                    function showBranch3(selected) {
+                        $.get('/system/branches/getBranches?parent=' + selected + '&' + new Date().getTime(), function(data, status, xhr) {
+                            if (status === 'success') {
+                                $("#branch3").remove();
+                                $("#branch4").remove();
+                                var branches = data.branches;
+                                if (branches.length > 0) {
+                                    var select = $('<select id="branch3" class="form-control"></select>');
+                                    var options = '<option value="">请选择</option>';
+                                    for (var i = 0, l = branches.length; i < l; i++) {
+                                        options += '<option  value="' + branches[i].code + '">' + branches[i].code + '-' + branches[i].name + '</option>';
+                                    }
+                                    select.append(options);
+                                    $('#branch2').after(select);
+                                    $('#branch3').change(function() {
+                                        var selected = $(this).val();
+                                        $('#userBranch').val(selected);
+                                        showBranch4(selected);
+                                    });
+                                }
+                            } else {
+                                var some_html = '<br><div class="alert alert-danger fade in">';
+                                some_html += '<label>调用后台出错：' + xhr.statusText + '</label>';
+                                some_html += '</div>';
+                                bootbox.alert(some_html);
+                            }
+                        });
+                    }
+                    function showBranch4(selected) {
+                        $.get('/system/branches/getBranches?parent=' + selected + '&' + new Date().getTime(), function(data, status, xhr) {
+                            if (status === 'success') {
+                                $("#branch4").remove();
+                                var branches = data.branches;
+                                if (branches.length > 0) {
+                                    var select = $('<select id="branch4" class="form-control"></select>');
+                                    var options = '<option value="">请选择</option>';
+                                    for (var i = 0, l = branches.length; i < l; i++) {
+                                        options += '<option  value="' + branches[i].code + '">' + branches[i].code + '-' + branches[i].name + '</option>';
+                                    }
+                                    select.append(options);
+                                    $('#branch3').after(select);
+                                    $('#branch4').change(function() {
+                                        var selected = $(this).val();
+                                        $('#userBranch').val(selected);
+                                    });
+                                }
+                            } else {
+                                var some_html = '<br><div class="alert alert-danger fade in">';
+                                some_html += '<label>调用后台出错：' + xhr.statusText + '</label>';
+                                some_html += '</div>';
+                                bootbox.alert(some_html);
+                            }
+                        });
+                    }
+                    $(function() {
+                        showBranchInfo();
+                        showBranch0();
+                        $('#branch0').change(function() {
+                            var selected = $(this).val();
+                            $('#userBranch').val(selected);
+                            if (selected != 'ALL') {
+                                showBranch1(selected);
+                            }
+                        });
+
+                    });
+    </script>
+{/script}

@@ -1,0 +1,254 @@
+	<form class="form-horizontal" method="post" id="addSubForm" role="form">
+			<input type="hidden" name="_csrf" value="{_csrf}" />
+			{#bizaccept}
+			<input type="hidden" id="providerId" name="contract[providerId]" value="{providerId.id}" />
+			<input type="hidden" id="providerType" name="contract[providerType]" value="{providerId.type}" />
+			<input type="hidden" id="agentId" name="contract[agentId]" value="{agentId}">
+			<input type="hidden" id="id" name="bizaccept[id]" value="{id}">
+			<div class="form-group">
+				<label for="providername" class="col-sm-1 control-label">供应商</label>
+				<div class="col-sm-2">
+					<input type="text" name="providername" class="form-control" id="providername" value="{providerCode}" readonly>
+				</div>
+				<label for="agentname" class="col-sm-1 control-label">营销员</label>
+				<div class="col-sm-2">
+				    <input type="text" name="contract[agentName]" class="form-control" id="agentname" value="{agentName}" readonly>
+				</div>
+                <label for="applicationno" class="col-sm-1 control-label">投保单号</label>
+                <div class="col-sm-2">
+                    <input type="text" name="contract[applicationNo]" class="form-control" id="applicationno" value="{applicationNo}" readonly>
+                </div>
+                <label for="acceptDate" class="col-sm-1 control-label">保单号码</label>
+                <div class="col-sm-2">
+                    <input type="text" name="contract[contractNo]" class="form-control"  value="{applicationNo}" readonly>
+                </div>
+                {/bizaccept}
+			</div>
+			<div class="form-group">
+				<label for="initialchargemode" class="col-sm-1 control-label">缴费方式<span class="required-indicator">*</span></label>
+				<div class="col-sm-2">
+					{@baseCode id="chagermode" selectValue="{contract.initialChargeMode}" name="contract[initialChargeMode]" base="chargemode" blank="true" required="true"/}
+				</div>
+                <label for="approveDate" class="col-sm-1 control-label">出单日期<span class="required-indicator">*</span></label>
+                <div class="col-sm-2">
+                   <div class="input-group date date-default" id="datetimepicker">
+                      <input class="form-control" name="contract[approveDate]" size="16"   type="text" required readonly>
+                      <span class="input-group-addon">
+                            <i class="icon-th icon-large"></i>
+                      </span>
+                   </div>
+                </div>
+                <label for="paidupDate" class="col-sm-1 control-label">缴费日期</label>
+                <div class="col-sm-2">
+                    <div class="input-group date date-default" id="datetimepicker">
+                      <input class="form-control" name="contract[paidupDate]" size="16"   type="text" value='{@formatDate date="{contract.paidupDate}" format="YYYY-MM-DD" required="true"/}'>
+                          <span class="input-group-addon"><i class="icon-th icon-large"></i></span>
+                   </div>
+               </div>
+               <label for="effectiveDate" class="col-sm-1 control-label">生效日期<span class="required-indicator">*</span></label>
+               <div class="col-sm-2">
+                   <div class="input-group date date-default" id="datetimepicker">
+                      <input class="form-control" name="contract[effectiveDate]" size="16"   type="text" required readonly>
+                          <span class="input-group-addon"><i class="icon-th icon-large"></i></span>
+                  </div>
+               </div>
+			</div>
+
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <ul class="nav nav-tabs">
+                      <li class="active"><a href="#applicant" data-toggle="tab">投保人</a></li>
+                      <li><a href="#policy" data-toggle="tab">被保人</a></li>
+                      <li><a href="#Beneficiary" data-toggle="tab">车辆信息</a></li>
+                      <li><a href="#coverage" data-toggle="tab">险种</a></li>
+                    </ul>
+                </div>
+           </div>
+            <div class="form-group">
+                <div class="col-sm-12 tab-content">
+                    {! 投保人 !}
+		            <div class="tab-pane active" id="applicant">
+			            <div class="form-group">
+			                    <label for="idtype" class="col-sm-1 control-label">证件类型</label>
+                                <div class="col-sm-2">
+					                {@baseCode id="idtype" selectValue="{contract.idtype}" name="contract[applicant][aidtype]" base="idtype" blank="true" /}
+                                </div>
+                                <label for="businesslicenceLicenceNO" class="col-sm-1 control-label">证件号码</label>
+                                <div class="col-sm-2">
+                                    <input type="text" name="contract[applicant][aidno]" class="form-control" value="{contract.applicant.aidno}" id="businesslicenceLicenceNO" >
+                                </div>
+			                    <label for="businesslicenceStartDate" class="col-sm-1 control-label">姓名</label>
+			                     <div class="col-sm-2">
+			                	    <input type="text" name="contract[applicant][applicantname]" class="form-control" value="{contract.applicant.applicantname}" id="businesslicenceLicenceNO" >
+                                 </div>
+			                    <label for="asex" class="col-sm-1 control-label">性别</label>
+                                <div class="col-sm-2">
+                                    {@baseCode id="sex" selectValue="{contract.asex}" name="contract[applicant][asex]" base="sex" blank="true" /}
+                                </div>
+			            </div>
+			            <div class="form-group">
+			                <label for="abirthday" class="col-sm-1 control-label">生日</label>
+			                <div class="col-sm-2">
+                                 <div class="input-group date date-default" id="datetimepicker">
+                                    <input class="form-control" name="contract[applicant][abirthday]" size="16"   type="text" value='{@formatDate date="{contract.applicant.abirthday}" format="YYYY-MM-DD" /}'readonly>
+                                        <span class="input-group-addon"><i class="icon-th icon-large"></i></span>
+                                </div>
+			                </div>
+                            <label for="aemail" class="col-sm-1 control-label">电子邮件</label>
+                            <div class="col-sm-2">
+                                       <input type="text" name="contract[applicant][aemail]" class="form-control" value="{contract.applicant.aemail}" id="aemail" >
+                            </div>
+                            <label for="contractmobile" class="col-sm-1 control-label">手机</label>
+                            <div class="col-sm-2">
+                                       <input type="text" name="contract[applicant][contractmobile]" class="form-control" value="{contract.applicant.contractmobile}" id="contractmobile" >
+                            </div>
+                            <label for="telephone" class="col-sm-1 control-label">电话</label>
+                            <div class="col-sm-2">
+                                       <input type="text" name="contract[applicant][telephone]" class="form-control" value="{contract.applicant.telephone}" id="telephone" >
+                            </div>
+                         </div>
+			            <div class="form-group">
+                             <label for="address" class="col-sm-1 control-label">联系地址</label>
+                            <div class="col-sm-5">
+                                       <input type="text" name="contract[applicant][address]" class="form-control" value="{contract.applicant.address}" id="address" >
+                            </div>
+                        </div>
+                	</div>
+                	{! 被保人 !}
+                    <div class="tab-pane" id="policy">
+ 			            <div class="form-group">
+			                <label for="prelations" class= "col-sm-1 control-label">投保人关系</label>
+			                <div class="col-sm-2">
+                            {@baseCode id="relations" selectValue="{contract.policy.prelations}" name="contract[policy][prelations]" base="relations" blank="true" /}
+			                </div>
+			                <label for="pidtype" class="col-sm-1 control-label">证件类型</label>
+			                <div class="col-sm-2">
+			                 {@baseCode id="idtype" selectValue="{contract.policy.pidtype}" name="contract[policy][pidtype]" base="idtype" blank="true" /}
+			                </div>
+			                <label for="pidno" class="col-sm-1 control-label">证件号</label>
+			                <div class="col-sm-2">
+								<input type="text" name="contract[policy][pidno]" class="form-control" id="pidno" >
+			                </div>
+                            <label for="insurename" class=" col-sm-1 control-label">姓名</label>
+                            <div class="col-sm-2">
+                                <input type="text" name="contract[policy][insurename]" class="form-control" id="insurename" >
+                            </div>
+			            </div>
+                    </div>
+                    {! 车辆信息!}
+                    <div class="tab-pane" id="Beneficiary">
+                    	<div class="form-group">
+                            <label for="vehicleType" class= "col-sm-1 control-label">车辆种类</label>
+                              <div class="col-sm-2">
+                                {@baseCode id="vehicleTypes" selectValue="{contract.policyVehicle.vehicleType}" name="contract[policyVehicle][vehicleType]" base="vehicleTypes" blank="true" /}
+                              </div>
+                              <label for="vehicleModel" class="col-sm-1 control-label">车辆型号</label>
+                              <div class="col-sm-2">
+                                 <input type="text" name="contract[policyVehicle][vehicleModel]" class="form-control" id="vehicleModel" >
+                              </div>
+                              <label for="vehicleLicenceNo" class="col-sm-1 control-label">车牌号码</label>
+                              <div class="col-sm-2">
+                                  <input type="text" name="contract[policyVehicle][vehicleLicenceNo]" class="form-control" id="vehicleLicenceNo" >
+                              </div>
+                              <label for="usageTypes" class=" col-sm-1 control-label">使用性质</label>
+                              <div class="col-sm-2">
+                                 {@baseCode id="usageTypes" selectValue="{contract.policyVehicle.usageType}" name="contract[policyVehicle][usageType]" base="usageTypes" blank="true" /}
+                              </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="frameNo" class= "col-sm-1 control-label">车架编号</label>
+                              <div class="col-sm-2">
+                                      <input type="text" name="contract[policyVehicle][frameNo]" class="form-control" id="frameNo" >
+                              </div>
+                              <label for="vehicleColor" class="col-sm-1 control-label">车身颜色</label>
+                              <div class="col-sm-2">
+                                     <input type="text" name="contract[policyVehicle][vehicleColor]" class="form-control" id="vehicleColor" >
+                              </div>
+                              <label for="purchaseinVoiceNo" class="col-sm-1 control-label">购车发票</label>
+                              <div class="col-sm-2">
+                                  <input type="text" name="contract[policyVehicle][purchaseinVoiceNo]" class="form-control" id="purchaseinVoiceNo" >
+                              </div>
+                              <label for="purchaseDate" class=" col-sm-1 control-label">购置日期</label>
+                              <div class="col-sm-2">
+                                   <div class="input-group date date-default" id="datetimepicker">
+                                      <input class="form-control" name="contract[policyVehicle][purchaseDate]" size="16"   type="text" value='{@formatDate date="{contract.policyVehicle.purchaseDate}" format="YYYY-MM-DD" /}'readonly>
+                                      <span class="input-group-addon"><i class="icon-th icon-large"></i></span>
+                                  </div>
+                              </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="vehicleOwnerName" class= "col-sm-1 control-label">车辆所有者</label>
+                              <div class="col-sm-2">
+                                   <input type="text" name="contract[policyVehicle][vehicleOwnerName]" class="form-control" id="vehicleOwnerName" >
+                              </div>
+                              <label for="engineNo" class="col-sm-1 control-label">发动机编号</label>
+                              <div class="col-sm-2">
+                                    <input type="text" name="contract[policyVehicle][engineNo]" class="form-control" id="engineNo" >
+                              </div>
+                              <label for="madeDate" class="col-sm-1 control-label">制造年月</label>
+                              <div class="col-sm-2">
+                                <div class="input-group date date-default" id="datetimepicker">
+                                    <input class="form-control" name="contract[policyVehicle][madeDate]" size="16"   type="text" value='{@formatDate date="{contract.policyVehicle.madeDate}" format="YYYY-MM-DD"/}' readonly>
+                                    <span class="input-group-addon"><i class="icon-th icon-large"></i></span>
+                                </div>
+                              </div>
+                        </div>
+					</div>
+                    <div class="tab-pane" id="coverage">
+                        <div class="form-group" style=" margin-right: 0px;">
+                            <table class="table" style="margin-left: 37px;width: 96%">
+                                <tr>
+                                    <th class="col-md-2">商品名称</th>
+                                    <th class="col-md-1">保险金额</th>
+                                    <th class="col-md-1">保费</th>
+                                    <th class="col-md-1">年期</th>
+                                    <th class="col-md-1">价保</th>
+                                    <th class="col-md-1">操作</th>
+                                </tr>
+                                <tbody id="CoverageList"> </tbody>
+                                 <tr>
+                                      <td>合计</td>
+                                      <td>
+                                        <input type="text" class="form-control" disabled='true' id="faceamount" name="faceamount"  />
+                                      </td>
+                                      <td>
+                                        <input type="text"  class="form-control"  disabled='true' id="modalprem" name="modalprem"   />
+                                      </td>
+                                      <td>&nbsp;</td>
+                                      <td>
+                                        <input type="text"  class="form-control"   size="14"  disabled='true' id="valuepremsum" name="valuepremsum"   />
+                                      </td>
+                                      <td><a href="javascript:void(0)" onclick="adds()">新增</a></td>
+                                  </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+           </div>
+			<div class="form-group">
+				<div class="col-sm-12">
+				<div class="btn-toolbar" role="toolbar">
+					<div class="btn-group">
+						<button type="submit" class="btn btn-primary">提交</button>
+					</div>
+					<div class="btn-group">
+						<a id="returnButton" onclick="goBack()"  class="btn btn-default">返回</button>
+					</div>
+			</div>
+		<div style="visibility:hidden ">
+        <table>
+            <tbody id="tb_example">
+                    <tr>
+                        <td ><input type="text"  class="form-control" id="Productname"    name="xz[Productname]"     required  /></td>
+                        <td ><input type="text"  class="form-control" id="Faceamout"      name="xz[Faceamout]"       required /></td>
+                        <td ><input type="text"  class="form-control" id="Modalprem"      name="xz[Modalprem]"       required /></td>
+                        <td ><input type="text"  class="form-control" id="Premiumperiod"  name="xz[Premiumperiod]"   required /></td>
+                        <td ><input type="text"  class="form-control" id="valueprem"      name="xz[valueprem]"       required  readonly/></td>
+                        <td >
+                            <a href="#">删除</a>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+        </div>
+        </form>

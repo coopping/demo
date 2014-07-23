@@ -1,0 +1,47 @@
+{
+    "middleware": {
+        "errorPages": {
+            "404": "errors/404",
+            "500": "errors/500",
+            "503": "errors/503"
+        },
+	    "session": {
+	    	"secret": "dfdfdfdfgegsgkkafkjgoijgmv",
+	    	"module": "connect-redis",
+	    	"config": {
+	            "host": "localhost",
+	            "port": 6379,
+	            "db": 1
+	        },
+			"key" : "express.sid"
+	    },
+	    "multipart": {
+	    	"params": {
+	    		"uploadDir": "../tmp",
+	    		"encoding": "utf-8",
+	    		"maxFieldsSize": 2097152
+	    	}
+	    }
+// "appsec": {
+// "csrf": true,
+// "csp": false,
+// "p3p": false,
+// "xframe": "SAMEORIGIN"
+// },
+//
+// "compiler": {
+// "dust": "templates",
+// "less": "css"
+// },
+//
+// "session": {
+// "module": "memory",
+// "secret": "Rawrrrr!"
+// },
+//
+// "static": {
+// "srcRoot": "path:./public",
+// "rootPath": "path:./.build"
+// }
+    }
+}

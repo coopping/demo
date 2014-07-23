@@ -1,0 +1,43 @@
+{>"layouts/master" /}
+{<content}
+<div class="panel panel-primary">
+    <div class="panel-heading">{title}</div>
+    <div class="panel-body">
+        {>"system/menus/_menuTree" select="true"/}
+    <div class="btn-toolbar" role="toolbar">
+        <div class="btn-group">
+            <a id="returnButton" class="btn btn-default">返回</a>
+        </div>
+    </div>
+    </div>
+</div>
+{/content}
+{<script}
+<script type="text/javascript">
+    $("div.tree :checkbox").click(function() {
+        var checkBox = $(this);
+        var menuId = checkBox.attr('value');
+        $.get("/system/auth/roles/{role.id}/applyMenu/" + menuId + "?" + new Date().getTime(), function(data, status) {
+            if (status === 'success') {
+                var some_html = '<br><div class="alert alert-success fade in">';
+                some_html += '<label>' + data.message + '</label>';
+                some_html += '</div>';
+                var box = bootbox.alert(some_html);
+                if (data.selected) {
+                    checkBox.attr('checked', 'true');
+                    checkBox.next().addClass('active');
+                } else {
+                    checkBox.removeAttr('checked');
+                    checkBox.next().removeClass('active');
+                }
+            } else {
+                var some_html = '<br><div class="alert alert-danger fade in">';
+                some_html += '<label>调用后台出错：' + xhr.statusText + '</label>';
+                some_html += '</div>';
+                bootbox.alert(some_html);
+            }
+        });
+    });
+    $('#returnButton').attr("href", "/system/auth/roles");
+</script>
+{/script}

@@ -1,0 +1,30 @@
+{?showErrorMessage}
+<script type="text/javascript">
+	var some_html = '<br><div class="alert alert-danger fade in">';
+	some_html += '<label>输入数据不正确：</label>';
+	some_html += '<ul id="errorMessage">';
+	{#showErrorMessage}
+	some_html += '<li>{.}</li>';
+	{/showErrorMessage}
+	some_html += '</ul>';
+	some_html += '</div>';
+	bootbox.alert(some_html);
+</script>
+{/showErrorMessage} 
+
+{?showMessage}
+<script type="text/javascript">
+	var some_html = '<br><div class="alert alert-success fade in">';
+	some_html += '<ul id="showMessage">';
+	{#showMessage}
+	some_html += '<li>{.}</li>';
+	{/showMessage}
+	some_html += '</ul>';
+	some_html += '</div>';
+	var box = bootbox.alert(some_html);
+	
+	setTimeout(function(){
+		box.modal('hide');
+	},1000);
+</script>
+{/showMessage} 

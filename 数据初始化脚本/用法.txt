@@ -1,0 +1,5 @@
+1安装mongo-migrate
+npm install mongo-migrate
+2执行命令node mongo-migrate -runmm
+需cd到node-modules目录下运行命令。需将default-config.json文件复制到node-modules目录下。
+具体用法参考：https://github.com/afloyd/mongo-migrate

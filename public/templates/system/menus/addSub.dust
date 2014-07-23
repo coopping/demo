@@ -1,0 +1,22 @@
+{>"layouts/master" /} 
+{<content}
+<div class="panel panel-primary">
+  <div class="panel-heading">{title}</div>
+  <div class="panel-body">
+		{>"system/menus/_form"/}
+	</div>
+</div>
+{/content}
+{<script}
+<script type="text/javascript">
+	$("#returnButton").attr("href", "/system/menus/return?id={parent.id}");
+	$("#addMenuForm").validate({
+		submitHandler:function(form){
+			$(":button").attr("disabled","true");  
+			form.action = '/system/menus/{parent.id}/addSub';
+            form.submit();
+        },
+        focusCleanup:true
+	});
+</script> 
+{/script}

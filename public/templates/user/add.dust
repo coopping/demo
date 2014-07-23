@@ -1,0 +1,23 @@
+{>"layouts/master" /}
+{<content}
+    <div class="panel panel-primary">
+      <div class="panel-heading">{title}</div>
+      <div class="panel-body">
+            {>"user/_form" type="user"/}
+        </div>
+    </div>
+{/content}
+{<script}
+<script type="text/javascript">
+
+    $("#returnButton").attr("href", "/");
+    $("#userInfoForm").validate({
+        submitHandler:function(form){
+            $(":button").attr("disabled","true");  
+            form.action = '/user/baseInfo';
+            form.submit();
+        },
+        focusCleanup:true
+    });
+</script> 
+{/script}

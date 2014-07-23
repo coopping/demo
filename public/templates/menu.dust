@@ -1,0 +1,5 @@
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#">机构管理</a></li>
+  <li><a href="#">系统管理</a></li>
+  <li><a href="#">配置管理</a></li>
+</ul>

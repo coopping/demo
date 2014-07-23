@@ -1,0 +1,151 @@
+{>"layouts/master" /}
+
+<script type="text/javascript">
+      var countriesArray = $.map({"53a8e0e03039f3c02741c4c7":"TACX:天安财险","53b4b7fe83da2d382c180829":"ZGRS:中国人寿"}, function (value, key) { return { value: value, data: key }; });
+      $('#Providerid').autocomplete({
+           lookup: countriesArray,
+           minChars: 0,
+           onSelect: function (suggestion) {
+                $('#selection').html('You selected: ' + suggestion.value + ', ' + suggestion.data);
+                document.getElementById("providerIds").value= suggestion.data;
+           }
+       });
+
+       function checkNo(){
+            if($('#applicationno').val()===''){
+                var some_html = '<br><div class="alert alert-danger fade in">';
+                some_html += '<label>请输入投保单号</label>';
+                some_html += '</div>';
+                bootbox.alert(some_html);
+            }else{
+            var strDate = $.trim($('#applicationno').val());
+                var rex1 = /^[^\u4e00-\u9fa5]{0,}$/;
+                var rex2 = /^[^\'\"\,\/\\]{0,}$/;
+               if(!rex1.test(strDate)){
+                    var some_html = '<div class="alert alert-danger fade in"><label>投保单号不能输入中文，请重新输入</label></div>';
+                    bootbox.alert(some_html);
+                    $('#applicationno').val('');
+                    return false;
+               }else if(!rex2.test(strDate)){
+                    var some_html = '<div class="alert alert-danger fade in"><label>投保单号不能输入非法字符，请重新输入</label></div>';
+                    bootbox.alert(some_html);
+                    $('#applicationno').val('');
+                    return false;
+               }else{
+                    $.ajax({
+                            url:'/biz/bizAccept/checkApplicationNo',
+                            type:'get',
+                            data:{applicationNo:strDate},
+                            dataType:'json',
+                            timeout:2000,
+                            success: function(result) {
+                                if(result.length > 0){
+                                      var  some_html = '<div class="alert alert-danger fade in"><label>投保单号已存在</label></div>';
+                                      bootbox.alert(some_html);
+                                      $('#applicationno').val('');
+                                 }
+                            }
+                         });
+               }
+           }
+       }
+</script>
+{<content}
+<div class="panel panel-primary">
+  <div class="panel-heading">信息录入</div>
+  <div class="panel-body">
+		<form class="form-horizontal" method="post" id="addSubForm" role="form">
+			<input type="hidden" name="_csrf" value="{_csrf}" />
+			<input type="hidden" name= "bizaccept[agentId]" id='agentid' />
+			<input type="hidden" name= "bizaccept[providerId]" id='providerIds' />
+            {!  受理单信息!}
+			    <div class="form-group">
+                <label for="applicationno" class="col-sm-1 control-label">投保单号<span class="required-indicator">*</span></label>
+            	<div class="col-sm-2">
+            	<input type="text" name="bizaccept[applicationNo]" class="form-control" id="applicationno"  value="{bizaccept.applicationNo}"  onBlur="checkNo()" required>
+            	</div>
+                <label for="agentcode" class="col-sm-1 control-label">销售代码<span class="required-indicator">*</span></label>
+                <div class="col-sm-2">
+                    <input  type="text" name="bizaccept[agentCode]" class="form-control" id="agentcode"  onBlur="getAgentInfo()"    required>
+                </div>
+                <label for="agentname" class="col-sm-1 control-label">营销员姓名</label>
+                <div class="col-sm-2">
+                    <input type="text" name="bizaccept[agentName]" class="form-control" id="agentname" readonly>
+                </div>
+                <label for="agentidNo" class="col-sm-1 control-label">营销员证件</label>
+                <div class="col-sm-2">
+                        <input type="text" name="bizaccept[agentIdNo]" class="form-control" id="agentidNo" value="{bizaccept.agentIdNo}" readonly>
+                </div>
+			</div>
+            <div class="form-group">
+                <label for="customeridNo" class="col-sm-1 control-label">客户证件<span class="required-indicator">*</span></label>
+                <div class="col-sm-2">
+                    <input type="text" name="bizaccept[customerIdNo]" class="form-control" id="customeridNo" value="{bizaccept.customerIdNo}" required>
+                </div>
+                <label for="providerCode" class="col-sm-1 control-label">供应商代码<span class="required-indicator">*</span></label>
+                <div class="col-sm-2">
+                    <input type="text" name="bizaccept[providerCode]" class="form-control" id="Providerid" value="{bizaccept.providerCode}" required>
+                </div>
+                <label for="acceptNum" class="col-sm-1 control-label">受理金额<span class="required-indicator">*</span></label>
+                <div class="col-sm-2">
+                    <input type="text" name="bizaccept[acceptNum]" class="form-control" id="acceptNum" value="{bizaccept.acceptNum}" required>
+                </div>
+            </div>
+			<div class="form-group">
+            				<div class="col-sm-12">
+            				<div class="btn-toolbar" role="toolbar">
+            				<div class="btn-toolbar" role="toolbar">
+            					<div class="btn-group">
+            						<button type="submit" class="btn btn-primary">提交</button>
+            					</div>
+            					<div class="btn-group">
+            						<button id="returnButton" onclick="goback()" type="button" class="btn btn-default">返回</button>
+            					</div>
+            			</div>
+		</form>
+	</div>
+</div>
+{/content}
+{<script}
+    <script type="text/javascript">
+        function getAgentInfo(){
+        if($('#agentcode').val()===''){
+            var  some_html = '<div class="alert alert-danger fade in"><label>请输入营销人员工号</label></div>';
+            bootbox.alert(some_html);
+        }else{
+            $.ajax({
+                url:'/biz/getBrokerInfo',
+                type:'get',
+                data:{agentCode:$('#agentcode').val()},
+                dataType:'json',
+                timeout:2000,
+                success: function(result) {
+                    if(result.length==0){
+                          var  some_html = '<div class="alert alert-danger fade in"><label>营销人员工号不存在</label></div>';
+                          bootbox.alert(some_html);
+                          $('#agentid').val('');
+                          $('#agentname').val('');
+                          $('#agentidNo').val('');
+                     }else{
+                            $('#agentid').val(result[0]['_id']);
+                            $('#agentname').val(result[0]['agentName']);
+                            $('#agentidNo').val(result[0]['idNo']);
+                     }
+                }
+             });
+           }
+        }
+
+        function goBack(){
+            window.location.href="/biz/bizAccept/bizAcceptQuery";
+        }
+        $("#addSubForm").validate({
+            submitHandler:function(form){
+                $(":button").attr("disabled","true");
+                form.action = '/biz/bizAccept/addBizAccept';
+                form.submit();
+            },
+            focusCleanup:true
+        });
+    </script>
+{/script}

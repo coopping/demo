@@ -1,0 +1,100 @@
+{>"layouts/master" /} 
+{<content}
+<div class="panel panel-default">
+	  	<div class="panel-heading">
+            <div class="btn-group">
+            </div>
+	  	</div>
+	</div>
+<div class="panel panel-primary">
+  	<div class="panel-heading">营销人员列表</div>
+	<table class="table table-hover table-condensed">
+		<thead>
+			<tr>
+			    <th class="col-md-2">姓名</th>
+				<th class="col-md-2">工号</th>
+				<th class="col-md-2">职级</th>
+				<th class="col-md-1">入司日期</th>
+				<th class="col-md-1">证件号</th>
+				<th class="col-md-1">机构</th>
+				<th class="col-md-2">入职次数</th>
+				<th class="col-md-2">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+		{#agentBroker}
+		    <tr>
+		      <td class="col-md-2">{.agentName}</td>
+		      <td class="col-md-2"><a href="/agent/agent/{.id}/info">{.agentCode}<a/></td>
+		      <td class="col-md-1">{.agentLevel}</td>
+		      <td class="col-md-1">{@formatDate date="{.signingDate}" format="YYYY-MM-DD" required="true"/}</td>
+		      <td class="col-md-1">{.idNo}</td>
+              <td class="col-md-1">{.branchCode}</td>
+              <td class="col-md-2">{.signingTime}</td>
+              <td class="col-md-2">
+                    <a class="btn btn-default" data-toggle="tooltip" data-placement="left" title="编辑" href="/agent/agent/{.id}/edit"><i class="icon-edit icon-large"></i></a>
+                    <a class="btn btn-default" href="#" value="{.id}" data-toggle="tooltip" data-placement="right" name="deleteBtn" title="删除"><i class="icon-remove icon-large"></i></a>
+              </td>
+		    </tr>
+		{/agentBroker}
+		</tbody>
+	</table>
+</div>
+<div class="container-fluid">
+    <ul class="pagination"></ul>
+</div>
+{/content}
+{<script}
+<script type="text/javascript">
+	var options = {
+	    currentPage: {page},
+	    bootstrapMajorVersion : 3,
+	    totalPages: {pageCount},
+	    pageUrl : function(type, page, current){
+	        return '/agent/agent/agentQuery?page='+page;
+	    },
+	    itemContainerClass: function (type, page, current) {
+	        return (page === current) ? "disabled" : "pointer-cursor";
+	    },
+	    itemTexts: function (type, page, current) {
+	        switch (type) {
+	            case "first":
+	                return "<<";
+	            case "prev":
+	                return "<";
+	            case "next":
+	                return ">";
+	            case "last":
+	                return ">>";
+	            case "page":
+	                return page;
+	        }
+	    }
+	};
+
+	$("a[name='deleteBtn']").click(function() {
+            var id = $(this).attr('value');
+            bootbox.confirm("确定删除？", function(result) {
+                if (result) {
+                    $.get("/agent/agent/" + id + "/delete?" + new Date().getTime(), function(data, status) {
+                        if (status === 'success') {
+                            var some_html = '<br><div class="alert alert-success fade in">';
+                            some_html += '<label>成功删除</label>';
+                            some_html += '</div>';
+                            var box = bootbox.alert(some_html);
+                            box.on('hidden.bs.modal', function(e) {
+                                window.location.reload();
+                            });
+                        } else {
+                            var some_html = '<br><div class="alert alert-danger fade in">';
+                            some_html += '<label>调用后台出错：' + xhr.statusText + '</label>';
+                            some_html += '</div>';
+                            bootbox.alert(some_html);
+                        }
+                    });
+                }
+            });
+        });
+	$('.pagination').bootstrapPaginator(options);
+</script> 
+{/script}

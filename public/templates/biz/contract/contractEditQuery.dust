@@ -1,0 +1,140 @@
+{>"layouts/master" /} 
+{<content}
+<div class="panel panel-default">
+	  	<div class="panel-heading">
+	    	<div class="btn-group">
+	  	        <a data-toggle="collapse" class="btn btn-default" data-toggle="collapse" data-parent="#mainContent" href="#condition">查询条件</a>
+            </div>
+	  	</div>
+		<div id="condition" class="panel-collapse collapse">
+		  	<div class="panel-body">
+				<form class="form-inline" role="form" action="/biz/contract/contractEdit" method="get">
+					<div class="form-group">
+                        <label for="applicationno" class="col-sm-1 control-label">投保单号</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" name="applicationNo"  id="applicationno" value="{.applicationNo}" >
+                        </div>
+                        <label for="applicationname" class="col-sm-1 control-label">投保人</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" name="applicationName"  id="applicationname" value="{.applicationName}" >
+                        </div>
+                        <label for="insurename" class="col-sm-1 control-label">被保人</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" name="insureName"  id="insurename" value="{.insureName}" >
+                        </div>
+                        <label for="agentname" class="col-sm-1 control-label">代理人</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" name="agentName"  id="agentname" value="{.agentName}" >
+                        </div>
+					</div>
+					<div class="form-group">
+					<div class="col-sm-10">
+					</div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-default" type="submit">查询</button>
+                            <input type="hidden" name="_csrf" value="{_csrf}" />
+                        </div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+<div class="panel panel-primary">
+  	<div class="panel-heading">查询结果</div>
+	<table class="table table-hover table-condensed">
+		<thead>
+			<tr>
+			    <th class="col-md-1">投保单号</th>
+			    <th class="col-md-1">保单号码</th>
+				<th class="col-md-1">营销员</th>
+				<th class="col-md-1">供应商</th>
+				<th class="col-md-1">投保人</th>
+				<th class="col-md-1">被保人</th>
+				<th class="col-md-1">受益人</th>
+				<th class="col-md-1">保费合计</th>
+				<th class="col-md-1">代理费合计</th>
+				<th class="col-md-1">价保合计计</th>
+				<th class="col-md-2">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+		{#contract}
+		    <tr>
+		      <td class="col-md-2"><a href="/biz/contract/{.id}/info">{.applicationNo}</a></td>
+		      <td class="col-md-1">{.contractNo}</td>
+		      <td class="col-md-1">{.agentName}</td>
+		      <td class="col-md-1">{.providerId.name}</td>
+		      <td class="col-md-1">{.applicant.applicantname}</td>
+		      <td class="col-md-1">{.policy.insurename}</td>
+              <td class="col-md-1">{.beneficiary.binsurename}</td>
+              <td class="col-md-1">{.totalModalPrem}</td>
+              <td class="col-md-1">{.agencyfee}</td>
+              <td class="col-md-1">{.valuePrem}</td>
+		      <td class="col-md-1">
+		      <div class="btn-group btn-group-sm">
+                  <a class="btn btn-default" href="#" value="{.id}" data-toggle="tooltip" data-placement="right" name="deleteBtn" title="删除"><i class="icon-remove icon-large"></i></a>
+                  <a class="btn btn-default" data-toggle="tooltip" data-placement="left" title="编辑" href="/biz/contract/{.id}/edit"><i class="icon-edit icon-large"></i></a>
+              </div>
+		      </td>
+		    </tr>
+		{/contract}
+		</tbody>
+	</table>
+</div>
+<div class="container-fluid">
+    <ul class="pagination"></ul>
+</div>
+{/content}
+{<script}
+<script type="text/javascript">
+	var options = {
+	    currentPage: {page},
+	    bootstrapMajorVersion : 3,
+	    totalPages: {pageCount},
+	    pageUrl : function(type, page, current){
+	        return '/biz/contract/contractEdit?page='+page;
+	    },
+	    itemContainerClass: function (type, page, current) {
+	        return (page === current) ? "disabled" : "pointer-cursor";
+	    },
+	    itemTexts: function (type, page, current) {
+	        switch (type) {
+	            case "first":
+	                return "<<";
+	            case "prev":
+	                return "<";
+	            case "next":
+	                return ">";
+	            case "last":
+	                return ">>";
+	            case "page":
+	                return page;
+	        }
+	    }
+	};
+	$("a[name='deleteBtn']").click(function() {
+                var id = $(this).attr('value');
+                bootbox.confirm("确定删除？", function(result) {
+                    if (result) {
+                        $.get("/biz/contract/" + id + "/delete?" + new Date().getTime(), function(data, status) {
+                            if (status === 'success') {
+                                var some_html = '<br><div class="alert alert-success fade in">';
+                                some_html += '<label>成功删除</label>';
+                                some_html += '</div>';
+                                var box = bootbox.alert(some_html);
+                                box.on('hidden.bs.modal', function(e) {
+                                    window.location.reload();
+                                });
+                            } else {
+                                var some_html = '<br><div class="alert alert-danger fade in">';
+                                some_html += '<label>调用后台出错：' + xhr.statusText + '</label>';
+                                some_html += '</div>';
+                                bootbox.alert(some_html);
+                            }
+                        });
+                    }
+                });
+            });
+	$('.pagination').bootstrapPaginator(options);
+</script> 
+{/script}

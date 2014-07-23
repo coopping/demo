@@ -1,0 +1,133 @@
+<form class="form-horizontal" method="post" id="addSubForm" role="form">
+    <input type="hidden" name="_csrf" value="{_csrf}" />
+    <div class="form-group">
+        <label for="agreementName" class="col-sm-1 control-label">合约名称<span class="required-indicator">*</span></label>
+        <div class="col-sm-4">
+            <input type="text" name="agreement[agreementName]" class="form-control" id="agreementName" value="{agreement.agreementName}" required>
+        </div>
+        <label for="abbr" class="col-sm-1 control-label">供应商简称<span class="required-indicator">*</span></label>
+        <div class="col-sm-2">
+            <input type="text" name="agreement[providerId]" class="form-control" id="providerId" value="{agreement.providerId}" required>
+        </div>
+        <label for="type" class="col-sm-1 control-label">寿险产险<span class="required-indicator">*</span></label>
+        <div class="col-sm-2">
+            {@baseCode id="agreementType" selectValue="{agreement.agreementType}" name="agreement[agreementType]" base="agreementType" blank="true" required="true"/}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="agreementName" class="col-sm-1 control-label">签定日期<span class="required-indicator">*</span></label>
+        <div class="col-sm-2">
+        {?addTop}
+            <input type="date" name="agreement[agreementOrderDate]" class="form-control" id="startDate" value="{agreement.agreementOrderDate}" required>
+        {:else}
+            <input type="date" name="agreement[agreementOrderDate]" class="form-control" id="agreementOrderDate" value="{@formatDate date="{.agreementOrderDate}" format="YYYY-MM-DD"  required="true"/}">
+        {/addTop}
+        </div>
+        <label for="abbr" class="col-sm-1 control-label">生效日期<span class="required-indicator">*</span></label>
+        <div class="col-sm-2">
+        {?addTop}
+            <input type="date" name="agreement[startDate]" class="form-control" id="startDate" value="{agreement.startDate}" required>
+        {:else}
+            <input type="date" name="agreementType[startDate]" class="form-control" id="startDate" value="{@formatDate date="{.startDate}" format="YYYY-MM-DD"  required="true"/}">
+        {/addTop}
+        </div>
+        <label for="type" class="col-sm-1 control-label">截止日期<span class="required-indicator">*</span></label>
+        <div class="col-sm-2">
+        {?addTop}
+            <input type="date" name="agreement[endDate]" class="form-control" id="startDate" value="{agreement.endDate}" required>
+        {:else}
+           <input type="date" name="agreement[endDate]" class="form-control" id="endDate" value="{@formatDate date="{.endDate}" format="YYYY-MM-DD" required="true"/}" >
+        {/addTop}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="agreementName" class="col-sm-1 control-label">合约状态<span class="required-indicator">*</span></label>
+        <div class="col-sm-2">
+            <input type="text" name="agreement[agreementStatus]" class="form-control" id="agreementStatus" value="{agreement.agreementStatus}" required>
+        </div>
+        <label for="abbr" class="col-sm-1 control-label">合约编号<span class="required-indicator">*</span></label>
+        <div class="col-sm-2">
+            <input type="text" name="agreement[agreementDocumentId]" class="form-control" id="agreementDocumentId" value="{agreement.agreementDocumentId}" required>
+        </div>
+        <label for="type" class="col-sm-1 control-label">合约内容<span class="required-indicator">*</span></label>
+        <div class="col-sm-2">
+            <input type="text" name="agreement[agreementContent]" class="form-control" id="agreementContent" value="{agreement.agreementContent}" required>
+        </div>
+    </div>
+          <div class="form-group">
+              <div class="col-sm-12">
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a href="#orgAndChannel" data-toggle="tab">机构渠道信息</a></li>
+                    <li><a href="#products" data-toggle="tab">商品信息</a></li>
+                    <li><a href="#remarks" data-toggle="tab">扫描件下载</a></li>
+                    <li><a href="#remarks" data-toggle="tab">合约费率信息</a></li>
+                    <li><a href="#remarks" data-toggle="tab">合约奖金信息</a></li>
+                  </ul>
+              </div>
+         </div>
+
+          <div class="form-group">
+              <div class="col-sm-12 tab-content">
+            <div class="tab-pane active" id="orgAndChannel">
+	            <div class="form-group">
+                    <div class="col-sm-12 tab-content">
+                        <div class="tab-pane active" id="channelInfo">
+                        </div>
+                    </div>
+	            </div>
+
+              	</div>
+
+                  <div class="tab-pane" id="products">
+		            <div class="form-group">
+	                <label for="orgLicenceStartDate" class=" col-sm-offset-1 col-sm-1 control-label">有效期起</label>
+	                <div class="col-sm-2">
+	                	<div class="input-group date" id="orgLicenceStartDate">
+                      			<input class="form-control" size="16" name="orgLicence[startDate]"  type="text" value="" readonly>
+                      			<span class="input-group-addon"><i class="icon-th icon-large"></i></span>
+                 				</div>
+	                </div>
+	                <label for="orgLicenceEndDate" class=" col-sm-offset-1 col-sm-1 control-label">有效期止</label>
+	                <div class="col-sm-2">
+	                	<div class="input-group date" id="orgLicenceEndDate">
+                      			<input class="form-control" size="16" name="orgLicence[endDate]"  type="text" value="" readonly>
+                      			<span class="input-group-addon"><i class="icon-th icon-large"></i></span>
+                 				</div>
+	                </div>
+	                <label for="orgLicenceCode" class="col-sm-1 control-label">代码</label>
+	                <div class="col-sm-2">
+						<input type="text" name="orgLicence[orgCode]" class="form-control" id="orgLicenceCode" >
+	                </div>
+	            </div>
+	            <div class="form-group">
+	                <label for="orgLicenceType" class="col-sm-offset-1 col-sm-1 control-label">类型</label>
+	                <div class="col-sm-2">
+	                	<input type="text" name="orgLicence[orgType]" class="form-control" id="orgLicenceType" >
+	                </div>
+	                <label for="orgLicenceDate" class=" col-sm-offset-1 col-sm-1 control-label">发证日期</label>
+	                <div class="col-sm-2">
+	                	<div class="input-group date" id="orgLicenceDate">
+                      			<input class="form-control" size="16" name="orgLicence[licenceDate]"  type="text" value="" readonly>
+                      			<span class="input-group-addon"><i class="icon-th icon-large"></i></span>
+                 				</div>
+	                </div>
+	                <label for="orgLicenceRegNO" class="col-sm-1 control-label">登记号</label>
+	                <div class="col-sm-2">
+	                	<input type="text" name="orgLicence[regNO]" class="form-control" id="orgLicenceRegNO" >
+	                </div>
+	            </div>
+            </div>
+         </div>
+
+    <div class="form-group">
+                    <div class="col-sm-12">
+                    <div class="btn-toolbar" role="toolbar">
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-primary">提交</button>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default">返回</button>
+                        </div>
+                </div>
+</form>

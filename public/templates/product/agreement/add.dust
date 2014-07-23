@@ -1,0 +1,37 @@
+{>"layouts/master" /}
+{<content}
+<div class="panel panel-primary">
+  <div class="panel-heading">信息录入</div>
+  <div class="panel-body">
+        {>"/product/agreement/_form" addTop="true"/}
+	</div>
+</div>
+{/content}
+{<script}
+<script src="/js/jquery.complexify.js"></script>
+<script type="text/javascript">
+	$('.date').datepicker({
+		format : "yyyy-mm-dd",
+		autoclose : true,
+		language : 'zh-CN',
+		todayHighlight : true
+	});
+	$("#addSubForm").validate({
+		submitHandler:function(form){
+			$(":button").attr("disabled","true");
+			form.action = 'add';
+            form.submit();
+        },
+        focusCleanup:true
+	});
+
+    function showChannelInfo() {
+        $("[name='channelInfo']").bootstrapSwitch('onText','已分配');
+        $("[name='channelInfo']").bootstrapSwitch('offText', '未分配');
+    }
+
+    $(function() {
+        showChannelInfo();
+    });
+</script>
+{/script}

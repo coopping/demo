@@ -1,0 +1,136 @@
+{>"layouts/master" /}
+{<content}
+<div class="panel panel-primary">
+  <div class="panel-heading">信息详情</div>
+  <div class="panel-body">
+		<form class="form-horizontal" method="post" id="addSubForm" role="form">
+		{#agentBroker}
+			    <div class="form-group">
+                    <label for="agentType" class="col-sm-1 control-label">代理人类型</label>
+                    <div class="col-sm-2">
+                         <p class="form-control">{@baseCode id="agentType" code="{agentType}" base="agentType" /}</info>
+                    </div>
+                    <label for="agentName" class="col-sm-1 control-label">姓名</label>
+                    <div class="col-sm-2">
+                         <p class="form-control">{agentName}</info>
+                    </div>
+                    <label for="education" class="col-sm-1 control-label">学历</label>
+                    <div class="col-sm-2">
+                            <p class="form-control">{@baseCode id="education" code="{.education}" base="education" blank="true"/}</p>
+                    </div>
+                    <label for="idType" class="col-sm-1 control-label">证件类型</label>
+                    <div class="col-sm-2">
+                           <p class="form-control">{@baseCode id="idtype" code="{.idType}" base="idtype" blank="true"/}</p>
+                    </div>
+			    </div>
+                <div class="form-group">
+                    <label for="idNo" class="col-sm-1 control-label">证件号<span class="required-indicator">*</span></label>
+                    <div class="col-sm-2">
+                            <p class="form-control">{.idNo}</p>
+                    </div>
+                    <label for="sex" class="col-sm-1 control-label">性别<span class="required-indicator">*</span></label>
+                    <div class="col-sm-2">
+                          <p class="form-control">{@baseCode id="sex" code="{.sex}"  base="sex" /}</p>
+                    </div>
+                    <label for="birthday" class="col-sm-1 control-label">出生日期<span class="required-indicator">*</span></label>
+                    <div class="col-sm-2">
+                             <p class="form-control">{@formatDate date="{.birthday}" format="YYYY-MM-DD" required="true"/}</p>
+                    </div>
+                    <label for="contractMobile" class="col-sm-1 control-label">手机号码<span class="required-indicator">*</span></label>
+                    <div class="col-sm-2">
+                        <p class="form-control">{.contractMobile}</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="telephone" class="col-sm-1 control-label">联系电话</label>
+                    <div class="col-sm-2">
+                        <p class="form-control">{.telephone}</p>
+                    </div>
+                    <label for="address" class="col-sm-1 control-label">联系地址<span class="required-indicator">*</span></label>
+                    <div class="col-sm-2">
+                        <p class="form-control">{.address}</p>
+                    </div>
+                    <label for="email" class="col-sm-1 control-label">电子邮箱</label>
+                    <div class="col-sm-2">
+                        <p class="form-control">{.email}</p>
+                    </div>
+                    <label for="signingTime" class="col-sm-1 control-label">签约次数</label>
+                    <div class="col-sm-2">
+                        <p class="form-control">{.signingTime}</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="customeridNo" class="col-sm-1 control-label">基本法<span class="required-indicator">*</span></label>
+                    <div class="col-sm-2">
+                            <p class="form-control">{@baseCode id="caseMain" code="{.caseMain}"  base="caseMain"/}</p>
+                    </div>
+                    <label for="agentLevel" class="col-sm-1 control-label">入司职级<span class="required-indicator">*</span></label>
+                    <div class="col-sm-2">
+                            <p class="form-control">{@baseCode id="agentLevel" code="{.agentLevel}" base="agentLevel" /}</p>
+                    </div>
+                    <label for="providerCode" class="col-sm-1 control-label">入司日期<span class="required-indicator">*</span></label>
+                    <div class="col-sm-2">
+                           <p class="form-control">{@formatDate date="{.signing}" format="YYYY-MM-DD" required="true"/}</p>
+                    </div>
+                    <label for="acceptNum" class="col-sm-1 control-label">状态</label>
+                    <div class="col-sm-2">
+                            <p class="form-control">{@baseCode id="agentstatus" code="{.agentStatus}" base="agentstatus" /}</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="certificateNo" class="col-sm-1 control-label">证书号</label>
+                    <div class="col-sm-2">
+                        <p class="form-control">{.certificateNo</p>
+                    </div>
+                    <label for="startDate" class="col-sm-1 control-label">生效日期</label>
+                    <div class="col-sm-2">
+                           <p class="form-control">{@formatDate date="{.startDate}" format="YYYY-MM-DD" required="true"/}</p>
+                    </div>
+                    <label for="endDate" class="col-sm-1 control-label">截止日期</label>
+                        <div class="col-sm-2">
+                            <p class="form-control">{@formatDate date="{.endDate}" format="YYYY-MM-DD" required="true"/}</p>
+                        </div>
+                    <div id="branchInfo"></div>
+                </div>
+
+			  <div class="form-group">
+                    <div class="col-sm-12">
+                        <div class="btn-toolbar" role="toolbar">
+                            <div class="btn-group">
+                                <button id="returnButton" onclick="goBack()" type="button" class="btn btn-default">返回</button>
+                            </div>
+                        </div>
+                    </div>
+              </div>
+            {/agentBroker}
+		</form>
+		</div>
+	</div>
+</div>
+{/content}
+<script src="/js/jquery.complexify.js"></script>
+{<script}
+    <script type="text/javascript">
+        var dataOptions = {
+            format : "yyyy-mm-dd",
+            autoclose : true,
+            language : 'zh-CN',
+            todayHighlight : true
+        };
+        $('.date-default').datepicker(dataOptions);
+        function goBack(){
+            window.location.href="/agent/agent/agentQuery";
+        }
+
+        function showBranchInfo() {
+                        var div = $('<div class="form-group"></div>');
+                        div.append('<label  class="col-sm-1 control-label">所属机构<span class="required-indicator">*</span></label>');
+                        div.append('<label class="col-sm-2"><input type="text" name="agentBroker[branchCode]" readonly class="form-control" id="userBranch" value="{agentBroker[0].branchCode}"  required>');
+                        $('#branchInfo').append(div);
+        }
+
+        $(function() {
+            showBranchInfo();
+        });
+    </script>
+{/script}

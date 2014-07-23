@@ -1,0 +1,101 @@
+{>"layouts/master" /} 
+{<content}
+<div class="panel panel-default">
+	  	<div class="panel-heading">
+            <div class="btn-group">
+                 <a class="btn btn-default" href="/biz/bizAccept/addBizAccept">新增受理单</a>
+            </div>
+	  	</div>
+	</div>
+<div class="panel panel-primary">
+  	<div class="panel-heading">受理单列表</div>
+	<table class="table table-hover table-condensed">
+		<thead>
+			<tr>
+			    <th class="col-md-2">投保单号</th>
+				<th class="col-md-2">受理人证件号</th>
+				<th class="col-md-2">供应商</th>
+				<th class="col-md-1">受理日期</th>
+				<th class="col-md-1">受理保费</th>
+				<th class="col-md-2">客户证件号</th>
+				<th class="col-md-2">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+		{#Bizaccepts}
+		    <tr>
+		      <td class="col-md-2"><a href="/biz/bizAccept/{.id}/info">{.applicationNo}</a></td>
+		      <td class="col-md-2">{.agentIdNo}</td>
+		      <td class="col-md-2">{.providerCode}</td>
+		      <td class="col-md-1">{@formatDate date="{acceptDate}" format="YYYY-MM-DD" required="true"/}</td>
+		      <td class="col-md-1">{.acceptNum}</td>
+		      <td class="col-md-2">{.customerIdNo}</td>
+		      <td class="col-md-2">
+                  <div class="btn-group btn-group-sm">
+                      <a class="btn btn-default" data-toggle="tooltip" data-placement="left" title="编辑" href="/biz/bizaccept/{.id}/edit"><i class="icon-edit icon-large"></i></a>
+                      <a class="btn btn-default" href="#" value="{.id}" data-toggle="tooltip" data-placement="right" name="deleteBtn" title="删除"><i class="icon-remove icon-large"></i></a>
+                  </div>
+		      </td>
+		    </tr>
+		{/Bizaccepts}
+		</tbody>
+	</table>
+</div>
+<div class="container-fluid">
+    <ul class="pagination"></ul>
+</div>
+{/content}
+{<script}
+<script type="text/javascript">
+	var options = {
+	    currentPage: {page},
+	    bootstrapMajorVersion : 3,
+	    totalPages: {pageCount},
+	    pageUrl : function(type, page, current){
+	        return '/biz/bizAccept/bizAcceptQuery?page='+page;
+	    },
+	    itemContainerClass: function (type, page, current) {
+	        return (page === current) ? "disabled" : "pointer-cursor";
+	    },
+	    itemTexts: function (type, page, current) {
+	        switch (type) {
+	            case "first":
+	                return "<<";
+	            case "prev":
+	                return "<";
+	            case "next":
+	                return ">";
+	            case "last":
+	                return ">>";
+	            case "page":
+	                return page;
+	        }
+	    }
+	};
+
+	$("a[name='deleteBtn']").click(function() {
+            var id = $(this).attr('value');
+            bootbox.confirm("确定删除？", function(result) {
+                if (result) {
+                    $.get("/biz/bizAccept/" + id + "/delete?" + new Date().getTime(), function(data, status) {
+                        if (status === 'success') {
+                            var some_html = '<br><div class="alert alert-success fade in">';
+                            some_html += '<label>成功删除</label>';
+                            some_html += '</div>';
+                            var box = bootbox.alert(some_html);
+                            box.on('hidden.bs.modal', function(e) {
+                                window.location.reload();
+                            });
+                        } else {
+                            var some_html = '<br><div class="alert alert-danger fade in">';
+                            some_html += '<label>调用后台出错：' + xhr.statusText + '</label>';
+                            some_html += '</div>';
+                            bootbox.alert(some_html);
+                        }
+                    });
+                }
+            });
+        });
+	$('.pagination').bootstrapPaginator(options);
+</script> 
+{/script}
